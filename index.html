@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy at Work · Australian Privacy Awareness</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#fff;--bg:#fff;--subtle:#f8f9fa;--border:#e0e2e7;--border-s:#c0c4ce;
+  --ink:#0f1117;--ink2:#3a3f52;--ink3:#6b7080;
+  --orange:#e85d26;--orange-d:#c94d1c;--orange-soft:#fff3ee;--orange-mid:#fcd4bf;
+  --red:#c62828;--red-soft:#fef2f2;--red-b:#fecaca;
+  --green:#166534;--green-soft:#f0fdf4;--green-b:#bbf7d0;
+  --blue:#1d4ed8;--blue-soft:#eff6ff;--blue-b:#bfdbfe;
+  --amber:#92400e;--amber-soft:#fffbeb;--amber-b:#fde68a;
+  --dark:#111827;--hdr:52px;
+  --focus:0 0 0 3px rgba(232,93,38,.4);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;}
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;}
+.skip-link:focus{position:fixed;left:16px;top:16px;width:auto;height:auto;background:var(--orange);color:#fff;padding:10px 18px;border-radius:6px;font-weight:700;font-size:14px;z-index:999;text-decoration:none;}
+.sr{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+
+/* HEADER */
+.hdr{height:var(--hdr);background:#fff;border-bottom:1px solid var(--border);position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;padding:0 20px;gap:14px;}
+.hdr-home{display:flex;align-items:center;gap:8px;flex-shrink:0;background:none;border:none;cursor:pointer;padding:4px 8px 4px 4px;border-radius:6px;transition:background .15s;text-decoration:none;}
+.hdr-home:hover{background:var(--subtle);}
+.hdr-home:focus-visible{outline:none;box-shadow:var(--focus);}
+.hdr-logo{width:26px;height:26px;background:var(--orange);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.hdr-logo svg{color:#fff;}
+.hdr-title{font-size:13px;font-weight:700;color:var(--ink);letter-spacing:-.01em;white-space:nowrap;}
+.hdr-sep{width:1px;height:20px;background:var(--border);flex-shrink:0;}
+.hdr-prog{flex:1;display:flex;align-items:center;gap:3px;min-width:0;height:var(--hdr);}
+.chapter{flex:1;display:flex;align-items:center;position:relative;cursor:default;height:100%;padding:0 1px;}
+.chapter-bar{width:100%;height:3px;border-radius:2px;background:var(--border);overflow:hidden;transition:height .15s,background .3s;}
+.chapter-bar-fill{height:100%;border-radius:2px;width:0%;transition:width .4s cubic-bezier(.4,0,.2,1);}
+.chapter.active .chapter-bar-fill{background:var(--orange);}
+.chapter.done .chapter-bar{background:var(--green);}
+.chapter.done .chapter-bar-fill{width:100%;background:var(--green);}
+/* Hover — bar grows and tooltip appears */
+.chapter:hover .chapter-bar{height:5px;}
+.chapter-tooltip{position:absolute;top:calc(100% - 10px);left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;padding:4px 8px;border-radius:4px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:200;}
+.chapter-tooltip::after{content:'';position:absolute;bottom:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-bottom-color:var(--ink);}
+.chapter.active .chapter-tooltip{background:var(--orange);}
+.chapter.active .chapter-tooltip::after{border-bottom-color:var(--orange);}
+.chapter.done .chapter-tooltip{background:var(--green);}
+.chapter.done .chapter-tooltip::after{border-bottom-color:var(--green);}
+.chapter:hover .chapter-tooltip{opacity:1;}
+.hdr-count{font-size:11px;color:var(--ink3);font-weight:600;white-space:nowrap;flex-shrink:0;}
+@media(max-width:600px){
+  .chapter-tooltip{display:none;}
+  .hdr-prog{gap:2px;}
+}
+
+/* SLIDES */
+.slides{padding-top:var(--hdr);}
+.slide{display:none;min-height:calc(100vh - var(--hdr));animation:up .3s ease;}
+.slide.active{display:flex;flex-direction:column;}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* WRAP */
+.wrap{flex:1;max-width:820px;margin:0 auto;padding:52px 40px 48px;width:100%;display:flex;flex-direction:column;justify-content:center;}
+.wrap.wide{max-width:980px;}
+
+/* TYPE */
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:14px;}
+h1{font-size:clamp(28px,4vw,48px);font-weight:800;line-height:1.06;letter-spacing:-.035em;color:var(--ink);margin-bottom:18px;}
+h2{font-size:clamp(20px,2.8vw,34px);font-weight:800;letter-spacing:-.03em;line-height:1.1;color:var(--ink);margin-bottom:14px;}
+.accent{color:var(--orange);}
+.sub{font-size:16px;line-height:1.65;color:var(--ink2);max-width:580px;font-weight:400;}
+.body-text{font-size:15px;line-height:1.7;color:var(--ink2);}
+strong{font-weight:700;}em{font-style:italic;}
+
+/* COVER */
+.cover{background:#fff;}
+.cover-layout{display:grid;grid-template-columns:1fr 300px;min-height:calc(100vh - var(--hdr));align-items:stretch;}
+.cover-left{padding:64px 52px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--border);}
+.cover-right{display:flex;flex-direction:column;justify-content:space-between;padding:44px 36px;position:relative;overflow:hidden;}
+.cover-img{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1554774853-aae0a22c8aa4?w=760&q=80&fit=crop&crop=center');background-size:cover;background-position:center;}
+.cover-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,17,23,.88) 0%,rgba(15,17,23,.35) 60%,rgba(15,17,23,.15) 100%);}
+.cover-right .cover-badge,.cover-right .cover-stats,.cover-right .photo-credit{position:relative;z-index:2;}
+.cover-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.15);color:#fff;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:6px 12px;border-radius:5px;width:fit-content;margin-bottom:24px;}
+.cover-stat-val{font-size:36px;font-weight:800;color:#fff;letter-spacing:-.04em;line-height:1;margin-bottom:2px;}
+.cover-stat-label{font-size:12px;color:rgba(255,255,255,.7);font-weight:500;}
+.cover-stat{margin-bottom:20px;}
+.c-div{width:32px;height:1px;background:rgba(255,255,255,.25);margin:14px 0;}
+.photo-credit{font-size:10px;color:rgba(255,255,255,.35);}
+.photo-credit a{color:rgba(255,255,255,.35);text-decoration:none;}
+
+/* SECTION HEADERS */
+.sec-slide{position:relative;overflow:hidden;}
+.sec-bg{position:absolute;inset:0;background-size:cover;background-position:center;}
+.sec-overlay{position:absolute;inset:0;background:rgba(15,17,23,.82);}
+.sec-slide .wrap{position:relative;z-index:2;max-width:660px;}
+.sec-num{font-size:100px;font-weight:800;color:rgba(255,255,255,.04);letter-spacing:-.06em;line-height:1;margin-bottom:-18px;}
+.sec-slide .eyebrow{color:var(--orange);}
+.sec-slide h2{color:#fff;}
+.sec-slide .sub{color:rgba(255,255,255,.65);}
+.sec-slide .btn-ghost{color:rgba(255,255,255,.7);border-color:rgba(255,255,255,.2);}
+.sec-slide .btn-ghost:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.35);}
+.sec-ill{width:60px;height:60px;background:rgba(232,93,38,.2);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;}
+.sec-ill svg{color:var(--orange);}
+.sec-credit{position:absolute;bottom:12px;right:20px;z-index:3;font-size:10px;color:rgba(255,255,255,.3);}
+.sec-credit a{color:rgba(255,255,255,.3);text-decoration:none;}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;padding:11px 20px;border-radius:6px;border:none;cursor:pointer;transition:all .15s;letter-spacing:-.01em;}
+.btn:focus-visible{outline:none;box-shadow:var(--focus);}
+.btn-fill{background:var(--orange);color:#fff;}
+.btn-fill:hover{background:var(--orange-d);transform:translateY(-1px);box-shadow:0 4px 16px rgba(232,93,38,.35);}
+.btn-ghost{background:transparent;color:var(--ink2);border:1.5px solid var(--border-s);}
+.btn-ghost:hover{background:var(--subtle);border-color:var(--ink3);}
+.btn-retry{background:var(--red-soft);color:var(--red);border:1.5px solid var(--red-b);}
+.btn-retry:hover{background:var(--red-b);}
+.nav{display:flex;gap:10px;margin-top:36px;flex-wrap:wrap;align-items:center;}
+
+/* CARDS */
+.grid{display:grid;gap:12px;margin:22px 0;}
+.grid.c2{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));}
+.grid.c3{grid-template-columns:repeat(auto-fit,minmax(196px,1fr));}
+.card{background:var(--subtle);border:1px solid var(--border);border-radius:10px;padding:20px;transition:border-color .15s,box-shadow .15s;}
+.card:hover{border-color:var(--orange);box-shadow:0 0 0 3px var(--orange-soft);}
+.card-icon{width:40px;height:40px;background:#fff;border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
+.card-icon svg{color:var(--orange);}
+.card h3{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:5px;}
+.card p{font-size:13px;color:var(--ink3);line-height:1.6;}
+.card.danger{border-color:var(--red-b);}
+.card.danger .card-icon svg{color:var(--red);}
+
+/* CALLOUTS */
+.callout{background:var(--orange-soft);border:1px solid var(--orange-mid);border-radius:10px;padding:14px 18px;display:flex;gap:12px;align-items:flex-start;margin:18px 0;}
+.callout.danger{background:var(--red-soft);border-color:var(--red-b);}
+.callout.danger .cico svg{color:var(--red);}
+.callout.info{background:var(--blue-soft);border-color:var(--blue-b);}
+.callout.info .cico svg{color:var(--blue);}
+.callout.success{background:var(--green-soft);border-color:var(--green-b);}
+.callout.success .cico svg{color:var(--green);}
+.callout.warning{background:var(--amber-soft);border-color:var(--amber-b);}
+.callout.warning .cico svg{color:var(--amber);}
+.cico{flex-shrink:0;margin-top:1px;}
+.cico svg{color:var(--orange);}
+.callout-body .ct{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.callout-body p{font-size:13px;line-height:1.6;color:var(--ink2);}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:10px;margin:22px 0;}
+.step{display:flex;gap:14px;background:var(--subtle);border:1px solid var(--border);border-radius:10px;padding:16px 18px;align-items:flex-start;transition:border-color .15s;}
+.step:hover{border-color:var(--orange);}
+.step-n{width:26px;height:26px;background:var(--orange);color:#fff;border-radius:50%;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.step h4{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:3px;}
+.step p{font-size:13px;color:var(--ink3);line-height:1.6;}
+
+/* TABS */
+.tab-container{margin-top:22px;}
+.tabs{display:flex;gap:2px;border-bottom:2px solid var(--border);margin-bottom:18px;overflow-x:auto;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{padding:8px 15px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--ink3);border:none;background:none;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;border-radius:4px 4px 0 0;transition:color .15s,background .15s;}
+.tab:hover{color:var(--ink);background:var(--subtle);}
+.tab[aria-selected="true"]{color:var(--orange);border-bottom-color:var(--orange);}
+.tab:focus-visible{outline:none;box-shadow:var(--focus);}
+.panel{display:none;}
+.panel.on{display:block;animation:up .25s ease;}
+
+/* PULL / COLORBAR */
+.pull{border-left:3px solid var(--orange);background:var(--subtle);border-radius:0 8px 8px 0;padding:13px 16px;font-size:14px;line-height:1.7;color:var(--ink2);margin:14px 0;}
+.colorbar{width:36px;height:3px;background:var(--orange);border-radius:2px;margin-bottom:18px;}
+
+/* TIPS */
+.tips{display:flex;flex-direction:column;gap:8px;margin:14px 0;}
+.tip{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.6;color:var(--ink2);background:var(--subtle);border:1px solid var(--border);border-radius:8px;padding:11px 15px;transition:border-color .15s;}
+.tip:hover{border-color:var(--orange-mid);}
+.tip .ico svg{color:var(--orange);margin-top:1px;}
+.ico{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* LO GRID */
+.lo-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0;}
+.lo-item{display:flex;gap:12px;align-items:flex-start;background:var(--subtle);border:1px solid var(--border);border-left:3px solid var(--orange);border-radius:8px;padding:14px 16px;}
+.lo-num{font-size:11px;font-weight:800;color:var(--orange);background:var(--orange-soft);border-radius:4px;padding:2px 7px;flex-shrink:0;letter-spacing:.06em;}
+.lo-text{font-size:14px;line-height:1.55;color:var(--ink2);font-weight:500;}
+
+/* ── KNOWLEDGE CHECK ── */
+.kc-question{margin-bottom:28px;}
+.kc-q-text{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:12px;line-height:1.5;}
+.kc-options{display:flex;flex-direction:column;gap:8px;}
+.kc-opt{display:flex;gap:12px;align-items:center;background:var(--subtle);border:1.5px solid var(--border);border-radius:8px;padding:12px 16px;cursor:pointer;transition:all .15s;font-size:14px;color:var(--ink2);font-weight:500;}
+.kc-opt:hover{border-color:var(--orange);background:var(--orange-soft);}
+.kc-opt.selected{border-color:var(--orange);background:var(--orange-soft);color:var(--ink);}
+.kc-opt:focus-visible{outline:none;box-shadow:var(--focus);}
+.kc-radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--border-s);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.kc-opt.selected .kc-radio{border-color:var(--orange);background:var(--orange);}
+.kc-opt.selected .kc-radio::after{content:'';width:6px;height:6px;border-radius:50%;background:#fff;}
+
+/* ── SCENARIO SHELL ── */
+.scenario-shell{background:var(--dark);border-radius:10px;margin-bottom:18px;overflow:hidden;position:relative;}
+.scenario-img{height:140px;position:relative;overflow:hidden;}
+.scenario-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.scenario-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(15,17,23,.1) 0%,rgba(15,17,23,.6) 100%);}
+.scenario-img-label{position:absolute;bottom:10px;left:18px;z-index:1;font-size:10px;color:rgba(255,255,255,.5);font-weight:500;letter-spacing:.08em;text-transform:uppercase;}
+.scenario-body{padding:18px 22px;border-left:3px solid var(--orange);}
+.scenario-body .eyebrow{color:rgba(255,255,255,.4);margin-bottom:6px;}
+.scenario-body p{font-size:15px;line-height:1.7;color:rgba(255,255,255,.85);}
+
+/* ASSESSMENT PROGRESS */
+.assess-progress{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+.assess-dots{display:flex;gap:6px;}
+.assess-dot{width:10px;height:10px;border-radius:50%;background:var(--border);transition:background .2s;}
+.assess-dot.ok{background:var(--green);}
+.assess-dot.no{background:var(--red);}
+.assess-dot.cur{background:var(--orange);}
+.assess-label{font-size:12px;color:var(--ink3);font-weight:600;}
+
+/* MCQ choices */
+.q-label{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:10px;}
+.choices{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+.choice{text-align:left;padding:13px 16px;border:1.5px solid var(--border);border-radius:8px;background:var(--subtle);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--ink2);cursor:pointer;transition:all .15s;line-height:1.5;}
+.choice:hover:not(:disabled){border-color:var(--orange);background:var(--orange-soft);color:var(--ink);}
+.choice:focus-visible{outline:none;box-shadow:var(--focus);}
+.choice:disabled{cursor:default;}
+.choice.ok{border-color:var(--green);background:var(--green-soft);color:var(--green);font-weight:700;}
+.choice.no{border-color:var(--red);background:var(--red-soft);color:var(--red);}
+.feedback{border-radius:8px;padding:12px 16px;font-size:13px;line-height:1.6;display:none;font-weight:500;}
+.feedback.show{display:flex;align-items:flex-start;gap:10px;}
+.feedback svg{flex-shrink:0;margin-top:1px;}
+.feedback.ok{background:var(--green-soft);color:var(--green);border:1px solid var(--green-b);}
+.feedback.no{background:var(--red-soft);color:var(--red);border:1px solid var(--red-b);}
+.feedback .remed{margin-top:8px;font-weight:400;padding-top:8px;border-top:1px solid currentColor;opacity:.85;}
+
+/* ── CLASSIFY — card-by-card button select ── */
+.classify-card{background:var(--dark);border-radius:12px;padding:28px 28px 24px;margin:20px 0 16px;border-left:4px solid var(--orange);}
+.classify-card-counter{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:10px;}
+.classify-card-item{font-size:20px;font-weight:700;color:#fff;line-height:1.4;}
+.classify-cat-btns{display:flex;flex-direction:column;gap:10px;margin-bottom:16px;}
+.classify-cat-btn{text-align:left;padding:14px 18px;border-radius:8px;border:1.5px solid var(--border);background:var(--subtle);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;color:var(--ink2);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:12px;}
+.classify-cat-btn:hover:not(:disabled){border-color:var(--orange);background:var(--orange-soft);color:var(--ink);}
+.classify-cat-btn:focus-visible{outline:none;box-shadow:var(--focus);}
+.classify-cat-btn:disabled{cursor:default;}
+.classify-cat-btn.ans-correct{border-color:var(--green);background:var(--green-soft);color:var(--green);font-weight:700;}
+.classify-cat-btn.ans-wrong{border-color:var(--red);background:var(--red-soft);color:var(--red);}
+.classify-cat-btn.ans-reveal{border-color:var(--green);background:var(--green-soft);color:var(--green);opacity:.7;}
+.classify-cat-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.classify-cat-dot.orange{background:var(--orange);}
+.classify-cat-dot.red{background:var(--red);}
+.classify-cat-dot.blue{background:var(--blue);}
+.classify-progress{display:flex;gap:5px;margin-bottom:6px;}
+.classify-prog-dot{height:4px;flex:1;border-radius:2px;background:var(--border);transition:background .3s;}
+.classify-prog-dot.done-ok{background:var(--green);}
+.classify-prog-dot.done-no{background:var(--red);}
+.classify-prog-dot.current{background:var(--orange);}
+.classify-item-feedback{border-radius:8px;padding:11px 15px;font-size:13px;line-height:1.6;margin-bottom:10px;display:none;}
+.classify-item-feedback.show{display:flex;align-items:flex-start;gap:10px;}
+.classify-item-feedback.ok{background:var(--green-soft);color:var(--green);border:1px solid var(--green-b);}
+.classify-item-feedback.no{background:var(--red-soft);color:var(--red);border:1px solid var(--red-b);}
+
+
+/* ── DOCUMENT REVIEW ── */
+.doc-review-wrap{margin:20px 0;}
+.mock-email{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:16px;font-size:14px;}
+.email-header{background:var(--subtle);border-bottom:1px solid var(--border);padding:14px 18px;}
+.email-field{display:flex;gap:8px;margin-bottom:4px;font-size:13px;}
+.email-field-label{color:var(--ink3);font-weight:600;width:40px;flex-shrink:0;}
+.email-field-val{color:var(--ink2);}
+.email-subject{font-size:14px;font-weight:700;color:var(--ink);margin-top:8px;}
+.email-body{padding:18px;}
+.email-body p{font-size:14px;line-height:1.7;color:var(--ink2);margin-bottom:10px;}
+.email-body p:last-child{margin-bottom:0;}
+.hotspot{display:inline;background:rgba(232,93,38,.15);border-bottom:2px solid var(--orange);border-radius:2px;cursor:pointer;padding:1px 2px;transition:background .15s;}
+.hotspot:hover{background:var(--orange-soft);}
+.hotspot.found{background:var(--red-soft);border-bottom-color:var(--red);}
+.hotspot.missed{background:var(--amber-soft);border-bottom-color:var(--amber-b);}
+.hotspot.correct-reveal{background:var(--green-soft);border-bottom-color:var(--green);}
+.hotspot.decoy-clicked{background:var(--blue-soft);border-bottom-color:var(--blue);}
+.hotspot.decoy-reveal{background:var(--subtle);border-bottom-color:var(--border-s);}
+.doc-issues-found{display:flex;flex-direction:column;gap:6px;margin:12px 0;}
+.issue-tag{display:inline-flex;align-items:center;gap:6px;background:var(--subtle);border:1px solid var(--border);border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;color:var(--ink2);}
+.issue-tag.found-ok{background:var(--green-soft);border-color:var(--green-b);color:var(--green);}
+.issue-tag.found-no{background:var(--red-soft);border-color:var(--red-b);color:var(--red);}
+
+/* ── BRANCHING TREE ── */
+.branch-scene{background:var(--dark);border-radius:10px;padding:20px 24px;margin-bottom:16px;border-left:3px solid var(--orange);}
+.branch-scene p{font-size:15px;line-height:1.7;color:rgba(255,255,255,.85);}
+.branch-scene .eyebrow{color:rgba(255,255,255,.4);margin-bottom:6px;}
+.branch-consequence{border-radius:8px;padding:12px 16px;font-size:13px;line-height:1.6;margin:10px 0;display:none;}
+.branch-consequence.show{display:block;}
+.branch-consequence.bad{background:var(--red-soft);border:1px solid var(--red-b);color:var(--red);}
+.branch-consequence.warn{background:var(--amber-soft);border:1px solid var(--amber-b);color:var(--amber);}
+.branch-consequence.good{background:var(--green-soft);border:1px solid var(--green-b);color:var(--green);}
+.branch-choices{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.branch-btn{text-align:left;padding:13px 16px;border:1.5px solid var(--border);border-radius:8px;background:var(--subtle);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--ink2);cursor:pointer;transition:all .15s;line-height:1.5;}
+.branch-btn:hover:not(:disabled){border-color:var(--orange);background:var(--orange-soft);color:var(--ink);}
+.branch-btn:disabled{cursor:default;}
+.branch-btn.chosen{border-color:var(--orange);background:var(--orange-soft);}
+.branch-decision{margin-bottom:20px;}
+.branch-decision-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:8px;}
+.branch-path-indicator{display:flex;gap:6px;margin-bottom:20px;align-items:center;}
+.branch-path-dot{width:8px;height:8px;border-radius:50%;background:var(--border);}
+.branch-path-dot.active{background:var(--orange);}
+.branch-path-dot.done-ok{background:var(--green);}
+.branch-path-dot.done-no{background:var(--red);}
+
+/* KC review links */
+.kc-review-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--orange);background:var(--orange-soft);border:1px solid var(--orange-mid);border-radius:4px;padding:3px 10px;cursor:pointer;text-decoration:none;margin-top:6px;transition:background .15s;}
+.kc-review-link:hover{background:var(--orange-mid);}
+.kc-review-link svg{flex-shrink:0;}
+.score-ring{width:120px;height:120px;margin:0 auto 20px;position:relative;}
+.score-ring svg{width:120px;height:120px;transform:rotate(-90deg);}
+.score-ring .track{fill:none;stroke:var(--border);stroke-width:8;}
+.score-ring .fill{fill:none;stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset 1s ease;}
+.score-ring .pass{stroke:var(--green);}
+.score-ring .fail{stroke:var(--red);}
+.score-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.score-pct{font-size:28px;font-weight:800;letter-spacing:-.03em;}
+.score-pct.pass-c{color:var(--green);}
+.score-pct.fail-c{color:var(--red);}
+.score-sub{font-size:11px;font-weight:600;color:var(--ink3);letter-spacing:.06em;text-transform:uppercase;}
+.results-hero{text-align:center;padding:24px 0 16px;}
+.result-row{display:flex;align-items:flex-start;gap:12px;background:var(--subtle);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:14px;color:var(--ink2);margin-bottom:8px;}
+.result-row.col{flex-direction:column;align-items:stretch;}
+.result-row.col .result-row-head{display:flex;align-items:center;gap:10px;}
+.ri{flex-shrink:0;margin-top:1px;}
+.ri.ok svg{color:var(--green);}
+.ri.no svg{color:var(--red);}
+
+/* TRANSFER TOOLS */
+.transfer-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0;}
+.transfer-card{background:var(--subtle);border:1px solid var(--border);border-radius:10px;padding:18px;}
+.transfer-card h3{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.transfer-card h3 svg{color:var(--orange);}
+.transfer-card ul{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.transfer-card li{font-size:13px;color:var(--ink2);line-height:1.55;padding-left:14px;position:relative;}
+.transfer-card li::before{content:'→';position:absolute;left:0;color:var(--orange);font-size:12px;font-weight:700;}
+.report-steps{display:flex;flex-direction:column;gap:8px;margin:12px 0;padding:0;list-style:none;}
+.report-step{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--ink2);line-height:1.6;}
+.report-step-num{background:var(--orange);color:#fff;font-size:11px;font-weight:800;min-width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+
+/* COMMITMENT PROMPT */
+.commitment-wrap{margin:24px 0;}
+.commitment-prompt{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:8px;line-height:1.5;}
+.commitment-sub{font-size:13px;color:var(--ink3);margin-bottom:14px;line-height:1.6;}
+.commitment-textarea{width:100%;min-height:100px;padding:14px 16px;font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.65;color:var(--ink);background:#fff;border:1.5px solid var(--border);border-radius:8px;resize:vertical;transition:border-color .15s;}
+.commitment-textarea:focus{outline:none;border-color:var(--orange);box-shadow:var(--focus);}
+.commitment-textarea::placeholder{color:var(--ink3);}
+.commitment-examples{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+.commitment-eg{font-size:12px;background:var(--subtle);border:1px solid var(--border);border-radius:20px;padding:5px 12px;color:var(--ink3);cursor:pointer;transition:all .15s;}
+.commitment-eg:hover{border-color:var(--orange);color:var(--orange);background:var(--orange-soft);}
+
+/* COMPLETION */
+.completion{background:var(--dark);position:relative;overflow:hidden;}
+.completion-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1400&q=60&fit=crop&crop=center');background-size:cover;background-position:center;opacity:.07;}
+.completion .wrap{align-items:center;text-align:center;position:relative;z-index:2;}
+.completion .completion-lower{width:100%;max-width:520px;text-align:left;}
+.badge-wrap{width:80px;height:80px;background:var(--orange);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:24px;box-shadow:0 0 0 10px rgba(232,93,38,.15),0 0 0 22px rgba(232,93,38,.07);animation:pulse 3s ease-in-out infinite;}
+.badge-wrap svg{color:#fff;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 10px rgba(232,93,38,.15),0 0 0 22px rgba(232,93,38,.07)}50%{box-shadow:0 0 0 14px rgba(232,93,38,.2),0 0 0 30px rgba(232,93,38,.06)}}
+.completion h2{color:#fff;}
+.completion .sub{color:rgba(255,255,255,.6);margin-bottom:8px;}
+.completion-statement{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:16px 20px;margin:16px 0 12px;font-size:13px;color:rgba(255,255,255,.75);line-height:1.7;width:100%;}
+.completion-statement strong{color:#fff;}
+.takeaways{width:100%;display:flex;flex-direction:column;gap:7px;margin-bottom:24px;}
+.tw{display:flex;align-items:flex-start;gap:10px;background:rgba(255,255,255,.06);border-radius:7px;padding:10px 14px;font-size:13px;color:rgba(255,255,255,.82);font-weight:500;line-height:1.55;}
+.tw svg{color:var(--orange);flex-shrink:0;margin-top:2px;}
+.completion .btn-ghost{color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.2);}
+.completion .btn-ghost:hover{background:rgba(255,255,255,.08);}
+.commitment-display{background:rgba(232,93,38,.15);border:1px solid rgba(232,93,38,.3);border-radius:8px;padding:16px 20px;margin-bottom:12px;font-size:15px;color:rgba(255,255,255,.85);line-height:1.7;font-style:italic;width:100%;}
+
+@media(max-width:740px){
+  .wrap{padding:36px 24px 40px;}
+  .hdr{padding:0 20px;}
+  .cover-layout{grid-template-columns:1fr;}
+  .cover-right{display:none;}
+  .cover-left{padding:44px 28px;border-right:none;}
+  .sec-num{font-size:64px;}
+  .lo-grid,.transfer-grid{grid-template-columns:1fr;}
+  .classify-categories{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="sr" aria-live="polite" aria-atomic="true" id="sr-live"></div>
+
+<header class="hdr" role="banner">
+  <button class="hdr-home" onclick="go(1)" aria-label="Return to course home">
+    <div class="hdr-logo" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+    <span class="hdr-title">Privacy at Work</span>
+  </button>
+  <div class="hdr-sep" aria-hidden="true"></div>
+  <div class="hdr-prog" id="chapters" role="progressbar" aria-valuemin="1" aria-valuemax="20" aria-valuenow="1" aria-label="Course progress"></div>
+  <span class="hdr-count" id="sc">1 / 20</span>
+</header>
+
+<main id="main" class="slides" role="main">
+
+<!-- ══ 1 · COVER ══ -->
+<section class="slide cover active" data-slide="1" aria-label="Cover">
+  <div class="cover-layout">
+    <div class="cover-left">
+      <p class="eyebrow">Australian Privacy Awareness</p>
+      <h1>Privacy isn't IT's problem.<br><span class="accent">It's yours.</span></h1>
+      <p class="sub">Every day you handle information about people. This course explains what the law expects — and what to actually do about it.</p>
+      <div class="callout info" style="margin-top:20px;margin-bottom:0">
+        <div class="cico"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+        <div class="callout-body"><p class="ct">Already know this topic?</p><p>We'll ask you 3 quick questions first. If you pass, you can go straight to the assessment and skip the content.</p></div>
+      </div>
+      <div class="nav"><button class="btn btn-fill" onclick="go(2)">Let's begin <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+    </div>
+    <div class="cover-right" aria-hidden="true">
+      <div class="cover-img"></div>
+      <div class="cover-badge"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Privacy Act 1988</div>
+      <div class="cover-stats">
+        <div class="cover-stat"><div class="cover-stat-val">~20</div><div class="cover-stat-label">Minutes to complete</div></div>
+        <div class="c-div"></div>
+        <div class="cover-stat"><div class="cover-stat-val">6</div><div class="cover-stat-label">Assessed activities</div></div>
+        <div class="c-div"></div>
+        <div class="cover-stat"><div class="cover-stat-val">3</div><div class="cover-stat-label">Interaction types</div></div>
+      </div>
+      <div class="photo-credit">Photo: <a href="https://unsplash.com/@campaign_creators?utm_source=privacy_course&utm_medium=referral" target="_blank">Campaign Creators</a> / Unsplash</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 2 · KNOWLEDGE CHECK ══ -->
+<section class="slide" data-slide="2" aria-label="Knowledge check">
+  <div class="wrap">
+    <div class="colorbar" aria-hidden="true"></div>
+    <p class="eyebrow">Knowledge check — 3 questions</p>
+    <h2>What do you <span class="accent">already know?</span></h2>
+    <p class="sub" style="margin-bottom:24px">Answer honestly — this helps route you to the right experience. It's not scored.</p>
+
+    <div id="kc-form">
+      <div class="kc-question" id="kc-q1">
+        <p class="kc-q-text">1. Under the Privacy Act 1988, which of the following is <strong>not</strong> considered personal information?</p>
+        <div class="kc-options" role="radiogroup" aria-label="Question 1 options">
+          <div class="kc-opt" tabindex="0" role="radio" aria-checked="false" onclick="kcSelect(1,'a')" onkeydown="kcKey(event,1,'a')"><div class="kc-radio"></div>A person's IP address</div>
+          <div class="kc-opt" tabindex="0" role="radio" aria-checked="false" onclick="kcSelect(1,'b')" onkeydown="kcKey(event,1,'b')"><div class="kc-radio"></div>Fully anonymised and de-identified aggregate statistics</div>
+          <div class="kc-opt" tabindex="0" role="radio" aria-checked="false" onclick="kcSelect(1,'c')" onkeydown="kcKey(event,1,'c')"><div class="kc-radio"></div>An employee's performance rating</div>
+          <div class="kc-opt" tabindex="0" role="radio" aria-checked="false" onclick="kcSelect(1,'d')" onkeydown="kcKey(event,1,'d')"><div class="kc-radio"></div>A customer's account number</div>
+        </div>
+      </div>
+
+      <div class="kc-question" id="kc-q2">
+        <p class="kc-q-text">2. A manager asks you to share a team member's medical diagnosis to help allocate workload. What should you do?</p>
+        <div class="kc-options" role="radiogroup" aria-label="Question 2 options">
+          <div class="kc-opt" tabindex="0" role="radio" aria-checked="false" onclick="kcSelect(2,'a')" onkeydown="kcKey(event,2,'a')"><div class="kc-radio"></div>Share it — the manager has a legitimate business reason</div>
+          <div class="kc-opt" tabindex="0" role="radio" aria-checked="false" onclick="kcSelect(2,'b')" onkeydown="kcKey(event,2,'b')"><div class="kc-radio"></div>Share leave days only, not the diagnosis</div>
+          <div class="kc-opt" tabindex="0" role="radio" aria-checked="false" onclick="kcSelect(2,'c')" onkeydown="kcKey(event,2,'c')"><div class="kc-radio"></div>Escalate to HR or the Privacy Officer before sharing any health information</div>
+          <div class="kc-opt" tabindex="0" role="radio" aria-checked="false" onclick="kcSelect(2,'d')" onkeydown="kcKey(event,2,'d')"><div class="kc-radio"></div>Refuse entirely — health data can never be accessed</div>
+        </div>
+      </div>
+
+      <div class="kc-question" id="kc-q3">
+        <p class="kc-q-text">3. Under the Notifiable Data Breaches scheme, what is the maximum timeframe to notify the OAIC after a serious data breach?</p>
+        <div class="kc-options" role="radiogroup" aria-label="Question 3 options">
+          <div class="kc-opt" tabindex="0" role="radio" aria-checked="false" onclick="kcSelect(3,'a')" onkeydown="kcKey(event,3,'a')"><div class="kc-radio"></div>7 days</div>
+          <div class="kc-opt" tabindex="0" role="radio" aria-checked="false" onclick="kcSelect(3,'b')" onkeydown="kcKey(event,3,'b')"><div class="kc-radio"></div>30 days</div>
+          <div class="kc-opt" tabindex="0" role="radio" aria-checked="false" onclick="kcSelect(3,'c')" onkeydown="kcKey(event,3,'c')"><div class="kc-radio"></div>90 days</div>
+          <div class="kc-opt" tabindex="0" role="radio" aria-checked="false" onclick="kcSelect(3,'d')" onkeydown="kcKey(event,3,'d')"><div class="kc-radio"></div>12 months</div>
+        </div>
+      </div>
+
+      <div class="nav">
+        <button class="btn btn-ghost" onclick="go(1)"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Back</button>
+        <button class="btn btn-fill" id="kc-submit-btn" onclick="submitKC()" disabled style="opacity:.4;cursor:not-allowed">Check my answers <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 3 · KNOWLEDGE CHECK RESULTS ══ -->
+<section class="slide" data-slide="3" aria-label="Knowledge check results">
+  <div class="wrap">
+    <div class="colorbar" aria-hidden="true"></div>
+    <p class="eyebrow">Knowledge check — results</p>
+    <h2 id="kc-result-heading">Your results</h2>
+    <div id="kc-result-body"></div>
+  </div>
+</section>
+
+<!-- ══ 4 · LOs ══ -->
+<section class="slide" data-slide="4" aria-label="Learning objectives">
+  <div class="wrap">
+    <div class="colorbar" aria-hidden="true"></div>
+    <p class="eyebrow">By the end of this course</p>
+    <h2>You will be able to <span class="accent">do four things.</span></h2>
+    <p class="sub" style="margin-bottom:20px">These outcomes map directly to your obligations under the Privacy Act 1988.</p>
+    <div class="lo-grid" role="list">
+      <div class="lo-item" role="listitem"><span class="lo-num">LO 1</span><span class="lo-text"><strong>Describe</strong> your obligations under the Privacy Act 1988 and the Australian Privacy Principles</span></div>
+      <div class="lo-item" role="listitem"><span class="lo-num">LO 2</span><span class="lo-text"><strong>Identify</strong> personal and sensitive information in your day-to-day work</span></div>
+      <div class="lo-item" role="listitem"><span class="lo-num">LO 3</span><span class="lo-text"><strong>Apply</strong> correct handling decisions across realistic workplace scenarios</span></div>
+      <div class="lo-item" role="listitem"><span class="lo-num">LO 4</span><span class="lo-text"><strong>Respond</strong> appropriately when a privacy breach occurs or is suspected</span></div>
+    </div>
+    <div class="callout info"><div class="cico"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div><div class="callout-body"><p class="ct">Assessment</p><p>You'll complete <strong>6 assessed activities</strong> — including scenarios, a document review, and a classification exercise. You need <strong>4 out of 6</strong> to pass.</p></div></div>
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="go(3)"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Back</button>
+      <button class="btn btn-fill" onclick="go(5)">Continue <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 5 · SECTION 1 HEADER ══ -->
+<section class="slide sec-slide" data-slide="5" aria-label="Section 1: The Law">
+  <div class="sec-bg" style="background-image:url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1400&q=70&fit=crop&crop=center')" aria-hidden="true"></div>
+  <div class="sec-overlay" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="sec-ill" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+    <div class="sec-num" aria-hidden="true">01</div>
+    <p class="eyebrow">Section 1 of 3 · LO 1 &amp; LO 2</p>
+    <h2>The law, in plain English</h2>
+    <p class="sub">What the Privacy Act protects and why it applies to you.</p>
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="go(4)"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Back</button>
+      <button class="btn btn-fill" onclick="go(6)">Let's go <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+  <div class="sec-credit">Photo: <a href="https://unsplash.com/@rawpixel?utm_source=privacy_course&utm_medium=referral" target="_blank">rawpixel</a> / Unsplash</div>
+</section>
+
+<!-- ══ 6 · PRIVACY ACT ══ -->
+<section class="slide" data-slide="6" aria-label="The Privacy Act 1988">
+  <div class="wrap">
+    <div class="colorbar" aria-hidden="true"></div>
+    <p class="eyebrow">The Privacy Act 1988</p>
+    <h2>One law. <span class="accent">13 principles.</span></h2>
+    <p class="sub">Governs how personal information is collected, used, stored and shared. Applies to most organisations with turnover over $3M — and many others.</p>
+    <div class="tab-container" role="tablist" aria-label="Privacy Act information">
+      <div class="tabs">
+        <button class="tab" role="tab" id="t1a-btn" aria-selected="true" aria-controls="t1a" onclick="tabSwitch(this,'t1a')">What it covers</button>
+        <button class="tab" role="tab" id="t1b-btn" aria-selected="false" aria-controls="t1b" onclick="tabSwitch(this,'t1b')">The 13 APPs</button>
+        <button class="tab" role="tab" id="t1c-btn" aria-selected="false" aria-controls="t1c" onclick="tabSwitch(this,'t1c')">Sensitive info</button>
+        <button class="tab" role="tab" id="t1d-btn" aria-selected="false" aria-controls="t1d" onclick="tabSwitch(this,'t1d')">Spot the difference</button>
+      </div>
+      <div id="t1a" class="panel on" role="tabpanel" aria-labelledby="t1a-btn">
+        <p class="body-text">The Act regulates <strong>personal information</strong> — anything about an identified individual, or someone reasonably identifiable. Names, emails, employee records, health data, financial details, IP addresses in many contexts.</p>
+        <div class="pull"><strong>Quick test:</strong> If you can connect information back to a specific person — directly or indirectly — it's likely personal information under the Act.</div>
+      </div>
+      <div id="t1b" class="panel" role="tabpanel" aria-labelledby="t1b-btn">
+        <p class="body-text" style="margin-bottom:14px">The 13 <strong>Australian Privacy Principles (APPs)</strong> cover the full lifecycle of personal information:</p>
+        <div class="grid c2">
+          <div class="card"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><h3>Open &amp; transparent</h3><p>Clear privacy policies (APP 1–2)</p></div>
+          <div class="card"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><h3>Collection</h3><p>Only collect what's needed (APP 3–5)</p></div>
+          <div class="card"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div><h3>Use &amp; disclosure</h3><p>Purpose limitation (APP 6–8)</p></div>
+          <div class="card"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Accuracy &amp; security</h3><p>Keep accurate and secure (APP 10–11)</p></div>
+          <div class="card"><div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Access &amp; correction</h3><p>Individual rights (APP 12–13)</p></div>
+        </div>
+      </div>
+      <div id="t1c" class="panel" role="tabpanel" aria-labelledby="t1c-btn">
+        <p class="body-text" style="margin-bottom:14px">These categories require <strong>explicit consent</strong> and extra care:</p>
+        <div class="grid c2">
+          <div class="card danger"><div class="card-icon" style="border-color:var(--red-b)"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><h3>Health &amp; medical</h3><p>Mental health, disabilities, medical history</p></div>
+          <div class="card danger"><div class="card-icon" style="border-color:var(--red-b)"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg></div><h3>Race &amp; ethnicity</h3><p>Racial or ethnic origin</p></div>
+          <div class="card danger"><div class="card-icon" style="border-color:var(--red-b)"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><h3>Biometric &amp; genetic</h3><p>Fingerprints, facial recognition, DNA</p></div>
+          <div class="card danger"><div class="card-icon" style="border-color:var(--red-b)"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><h3>Beliefs &amp; affiliations</h3><p>Political, religious, philosophical</p></div>
+        </div>
+      </div>
+      <div id="t1d" class="panel" role="tabpanel" aria-labelledby="t1d-btn">
+        <p class="body-text" style="margin-bottom:16px">Not everything is personal information. Understanding the difference between these three categories is essential — especially before you decide how to handle something.</p>
+        <div class="grid c3" style="margin-bottom:6px">
+
+          <div class="card" style="border-top:3px solid var(--orange)">
+            <h3 style="color:var(--orange);font-size:13px;margin-bottom:10px">🟠 Personal information</h3>
+            <p style="margin-bottom:10px;font-size:13px;color:var(--ink2)">Identifies or could identify a specific person. Protected under the Act.</p>
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <div style="font-size:12px;background:var(--orange-soft);border:1px solid var(--orange-mid);border-radius:4px;padding:4px 9px;color:var(--ink2);font-weight:600">Employee salary</div>
+              <div style="font-size:12px;background:var(--orange-soft);border:1px solid var(--orange-mid);border-radius:4px;padding:4px 9px;color:var(--ink2);font-weight:600">Customer email address</div>
+              <div style="font-size:12px;background:var(--orange-soft);border:1px solid var(--orange-mid);border-radius:4px;padding:4px 9px;color:var(--ink2);font-weight:600">IP address <span style="font-weight:400;color:var(--ink3)">— in most contexts</span></div>
+            </div>
+          </div>
+
+          <div class="card" style="border-top:3px solid var(--red)">
+            <h3 style="color:var(--red);font-size:13px;margin-bottom:10px">🔴 Sensitive information</h3>
+            <p style="margin-bottom:10px;font-size:13px;color:var(--ink2)">A subset of PI with <strong>higher protection</strong>. Needs explicit consent. Extra care always required.</p>
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <div style="font-size:12px;background:var(--red-soft);border:1px solid var(--red-b);border-radius:4px;padding:4px 9px;color:var(--ink2);font-weight:600">Medical diagnosis</div>
+              <div style="font-size:12px;background:var(--red-soft);border:1px solid var(--red-b);border-radius:4px;padding:4px 9px;color:var(--ink2);font-weight:600">Religious belief</div>
+              <div style="font-size:12px;background:var(--red-soft);border:1px solid var(--red-b);border-radius:4px;padding:4px 9px;color:var(--ink2);font-weight:600">Racial or ethnic origin</div>
+            </div>
+          </div>
+
+          <div class="card" style="border-top:3px solid var(--blue)">
+            <h3 style="color:var(--blue);font-size:13px;margin-bottom:10px">🔵 Not personal information</h3>
+            <p style="margin-bottom:10px;font-size:13px;color:var(--ink2)">Truly anonymised — cannot be linked to any individual. Falls <strong>outside</strong> the Act's scope.</p>
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <div style="font-size:12px;background:var(--blue-soft);border:1px solid var(--blue-b);border-radius:4px;padding:4px 9px;color:var(--ink2);font-weight:600">Anonymised sales totals</div>
+              <div style="font-size:12px;background:var(--blue-soft);border:1px solid var(--blue-b);border-radius:4px;padding:4px 9px;color:var(--ink2);font-weight:600">Aggregate website traffic</div>
+            </div>
+          </div>
+
+        </div>
+        <div class="pull" style="margin-top:12px"><strong>Key rule:</strong> Sensitive information is always personal information — but not all personal information is sensitive. When in doubt about which category applies, treat it as the higher protection category until you can check.</div>
+        <div class="callout" style="margin-top:12px;margin-bottom:0">
+          <div class="cico"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+          <div class="callout-body"><p class="ct">Coming up in the assessment</p><p>You'll be asked to classify items like these into the correct category. Review this tab before you continue if you're unsure.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="go(5)"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Back</button>
+      <button class="btn btn-fill" onclick="go(7)">Continue <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 7 · SECTION 2 HEADER ══ -->
+<section class="slide sec-slide" data-slide="7" aria-label="Section 2: Your Role">
+  <div class="sec-bg" style="background-image:url('https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=1400&q=70&fit=crop&crop=center')" aria-hidden="true"></div>
+  <div class="sec-overlay" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="sec-ill" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a7 7 0 0 1 13 0"/></svg></div>
+    <div class="sec-num" aria-hidden="true">02</div>
+    <p class="eyebrow">Section 2 of 3 · LO 1 &amp; LO 3</p>
+    <h2>Your role as an employee</h2>
+    <p class="sub">You make decisions about personal information every single day. That matters.</p>
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="go(6)"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Back</button>
+      <button class="btn btn-fill" onclick="go(8)">Got it <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+  <div class="sec-credit">Photo: <a href="https://unsplash.com/@frantic?utm_source=privacy_course&utm_medium=referral" target="_blank">Alex Kotliarskyi</a> / Unsplash</div>
+</section>
+
+<!-- ══ 8 · OBLIGATIONS ══ -->
+<section class="slide" data-slide="8" aria-label="Your four obligations">
+  <div class="wrap">
+    <div class="colorbar" aria-hidden="true"></div>
+    <p class="eyebrow">What's expected of you</p>
+    <h2>Four things <span class="accent">every employee</span> must do.</h2>
+    <div class="steps" role="list">
+      <div class="step" role="listitem"><div class="step-n" aria-hidden="true">1</div><div><h4>Only collect what's necessary</h4><p>Ask: do we actually need this? Don't gather data "just in case." Collect only what's relevant. <em>The urge to collect "because it might be useful" is where most unintentional breaches begin.</em></p></div></div>
+      <div class="step" role="listitem"><div class="step-n" aria-hidden="true">2</div><div><h4>Use it only for its intended purpose</h4><p>Customer email for invoicing? Don't repurpose it for marketing. Purpose matters — <em>even when the new use seems harmless or beneficial.</em></p></div></div>
+      <div class="step" role="listitem"><div class="step-n" aria-hidden="true">3</div><div><h4>Keep it secure</h4><p>Lock your screen. No personal email. No personal cloud. Store files where authorised. <em>The most common breaches in Australian organisations are accidental — wrong recipient, unlocked screen, informal channel.</em></p></div></div>
+      <div class="step" role="listitem"><div class="step-n" aria-hidden="true">4</div><div><h4>Report when something goes wrong</h4><p>Suspected breach? Report immediately. The NDB scheme means there's often a legal obligation to act within 30 days — <em>and the clock starts when you become aware, not when it's confirmed.</em></p></div></div>
+    </div>
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="go(7)"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Back</button>
+      <button class="btn btn-fill" onclick="go(9)">Continue <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 9 · SECTION 3 HEADER ══ -->
+<section class="slide sec-slide" data-slide="9" aria-label="Section 3: Making it Real">
+  <div class="sec-bg" style="background-image:url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1400&q=70&fit=crop&crop=center')" aria-hidden="true"></div>
+  <div class="sec-overlay" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="sec-ill" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+    <div class="sec-num" aria-hidden="true">03</div>
+    <p class="eyebrow">Section 3 of 3 · LO 3 &amp; LO 4</p>
+    <h2>Making it real</h2>
+    <p class="sub">Knowing the rules is step one. Here's how to live them without it becoming a chore.</p>
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="go(8)"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Back</button>
+      <button class="btn btn-fill" onclick="go(10)">Show me <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+  <div class="sec-credit">Photo: <a href="https://unsplash.com/@wanmingtan?utm_source=privacy_course&utm_medium=referral" target="_blank">Wan San Yip</a> / Unsplash</div>
+</section>
+
+<!-- ══ 10 · PRACTICAL TIPS ══ -->
+<section class="slide" data-slide="10" aria-label="Privacy habits">
+  <div class="wrap">
+    <div class="colorbar" aria-hidden="true"></div>
+    <p class="eyebrow">Privacy in practice</p>
+    <h2>Habits that <span class="accent">actually help.</span></h2>
+    <p class="sub">Small consistent actions — that's where privacy actually lives.</p>
+    <div class="tab-container" role="tablist" aria-label="Privacy practice tips">
+      <div class="tabs">
+        <button class="tab" role="tab" id="t2a-btn" aria-selected="true" aria-controls="t2a" onclick="tabSwitch(this,'t2a')">Day to day</button>
+        <button class="tab" role="tab" id="t2b-btn" aria-selected="false" aria-controls="t2b" onclick="tabSwitch(this,'t2b')">Digital hygiene</button>
+        <button class="tab" role="tab" id="t2c-btn" aria-selected="false" aria-controls="t2c" onclick="tabSwitch(this,'t2c')">If something goes wrong</button>
+      </div>
+      <div id="t2a" class="panel on" role="tabpanel" aria-labelledby="t2a-btn">
+        <div class="tips">
+          <div class="tip"><div class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>Lock your screen whenever you step away — even for two minutes.</div>
+          <div class="tip"><div class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6M9 6V4h6v2"/></svg></div>Shred or securely dispose of printed documents with personal information.</div>
+          <div class="tip"><div class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>Be aware of shoulder-surfing in open offices, cafés, and on public transport.</div>
+          <div class="tip"><div class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>Store files where you're authorised to — not on personal drives, desktops, or USB sticks.</div>
+        </div>
+      </div>
+      <div id="t2b" class="panel" role="tabpanel" aria-labelledby="t2b-btn">
+        <div class="tips">
+          <div class="tip"><div class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>Double-check the recipient before sending any email with personal data. Wrong sends are one of Australia's most reported breach types.</div>
+          <div class="tip"><div class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>In Teams or Slack, don't share screenshots containing personal data — use secure channels and access controls.</div>
+          <div class="tip"><div class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/></svg></div>Don't save work data to personal cloud storage without explicit approval.</div>
+          <div class="tip"><div class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h.01M15 9h.01M9 15h6"/></svg></div>Check your AI tool policy before pasting any real customer or employee data into any AI system.</div>
+        </div>
+      </div>
+      <div id="t2c" class="panel" role="tabpanel" aria-labelledby="t2c-btn">
+        <div class="callout danger" style="margin-bottom:14px"><div class="cico"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div class="callout-body"><p class="ct">Act fast. Don't cover it up.</p><p>The NDB scheme means your organisation may need to notify the OAIC and affected individuals within 30 days. The clock starts when you become aware.</p></div></div>
+        <div class="tips">
+          <div class="tip"><div class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>Suspect a breach — even a potential one — report to your manager or privacy contact immediately.</div>
+          <div class="tip"><div class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>Document what happened: what information, who may have seen it, when you discovered it.</div>
+          <div class="tip"><div class="ico"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>Don't try to fix it quietly yourself, and don't discuss externally until your organisation has assessed it.</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="go(9)"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Back</button>
+      <button class="btn btn-fill" onclick="go(11)">Start assessment <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ASSESSMENT SCREENS 11–16 (JS-built) ══ -->
+<section class="slide" data-slide="11" id="asc-1" aria-label="Assessment activity 1 of 6"></section>
+<section class="slide" data-slide="12" id="asc-2" aria-label="Assessment activity 2 of 6"></section>
+<section class="slide" data-slide="13" id="asc-3" aria-label="Assessment activity 3 of 6"></section>
+<section class="slide" data-slide="14" id="asc-4" aria-label="Assessment activity 4 of 6"></section>
+<section class="slide" data-slide="15" id="asc-5" aria-label="Assessment activity 5 of 6"></section>
+<section class="slide" data-slide="16" id="asc-6" aria-label="Assessment activity 6 of 6"></section>
+
+<!-- ══ 17 · RESULTS ══ -->
+<section class="slide" data-slide="17" id="results-screen" aria-label="Assessment results">
+  <div class="wrap">
+    <div class="colorbar" aria-hidden="true"></div>
+    <p class="eyebrow" id="res-eyebrow">Assessment complete</p>
+    <h2 id="res-heading">Your results</h2>
+    <div class="results-hero" role="region" aria-live="polite">
+      <div class="score-ring" aria-hidden="true">
+        <svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52"/><circle class="fill" id="score-arc" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="326.7"/></svg>
+        <div class="score-num"><span class="score-pct" id="score-pct">0%</span><span class="score-sub">score</span></div>
+      </div>
+      <p id="res-summary" style="font-size:16px;color:var(--ink2);margin-bottom:4px;text-align:center"></p>
+      <p id="res-detail" style="font-size:13px;color:var(--ink3);text-align:center"></p>
+    </div>
+    <div id="res-rows"></div>
+    <div class="nav" id="res-nav"></div>
+  </div>
+</section>
+
+<!-- ══ 18 · TRANSFER TOOLS ══ -->
+<section class="slide" data-slide="18" aria-label="Transfer tools and resources">
+  <div class="wrap">
+    <div class="colorbar" aria-hidden="true"></div>
+    <p class="eyebrow">At your organisation</p>
+    <h2>What to do <span class="accent">from here.</span></h2>
+    <p class="sub" style="margin-bottom:20px">Knowledge is the start. Here's how to put it into practice where you work.</p>
+    <div class="transfer-grid">
+      <div class="transfer-card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.36 2 2 0 0 1 3.57 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.5 16z"/></svg> Privacy contacts</h3>
+        <ul><li>Privacy Officer — <strong>[Insert name + email]</strong></li><li>IT Security — <strong>[Insert contact]</strong></li><li>People &amp; Culture — <strong>[Insert contact]</strong></li><li>Legal — <strong>[Insert contact]</strong></li></ul>
+      </div>
+      <div class="transfer-card">
+        <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Key policies</h3>
+        <ul><li>Privacy Policy — <strong>[Insert link]</strong></li><li>Data Handling Procedures — <strong>[Insert link]</strong></li><li>IT Acceptable Use — <strong>[Insert link]</strong></li><li>Incident Response Plan — <strong>[Insert link]</strong></li></ul>
+      </div>
+    </div>
+    <div class="transfer-card" style="margin-bottom:14px">
+      <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg> If you suspect a breach — report it now</h3>
+      <ol class="report-steps">
+        <li class="report-step"><span class="report-step-num">1</span><span>Stop. Don't take further action on the affected data</span></li>
+        <li class="report-step"><span class="report-step-num">2</span><span>Note what happened, when, and what information was involved</span></li>
+        <li class="report-step"><span class="report-step-num">3</span><span>Contact your Privacy Officer or manager immediately</span></li>
+        <li class="report-step"><span class="report-step-num">4</span><span>Don't discuss externally — let your organisation assess first</span></li>
+        <li class="report-step"><span class="report-step-num">5</span><span>Cooperate fully with any investigation</span></li>
+      </ol>
+    </div>
+    <div class="callout info"><div class="cico"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="callout-body"><p class="ct">For managers</p><p>Ask your team: <em>"What's one situation where we could handle personal information better?"</em> Then use the contacts above to check your approach.</p></div></div>
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="go(17)"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Back</button>
+      <button class="btn btn-fill" onclick="go(19)">One last thing <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 19 · COMMITMENT PROMPT ══ -->
+<section class="slide" data-slide="19" aria-label="Personal commitment">
+  <div class="wrap">
+    <div class="colorbar" aria-hidden="true"></div>
+    <p class="eyebrow">Before you go</p>
+    <h2>Make it <span class="accent">personal.</span></h2>
+    <p class="sub">Training works best when it connects to something real. Take 60 seconds.</p>
+
+    <div class="commitment-wrap">
+      <p class="commitment-prompt">What's one specific thing you'll do differently — or more consistently — after this course?</p>
+      <p class="commitment-sub">This isn't assessed. It's just for you. The most useful commitments are specific and immediate: a habit, a check, a conversation.</p>
+      <textarea class="commitment-textarea" id="commitment-text" placeholder="e.g. I'll double-check the recipient every time before emailing any customer data..." aria-label="Your personal commitment" rows="4" oninput="onCommitmentInput()"></textarea>
+      <div class="commitment-examples" aria-label="Example commitments for inspiration">
+        <span class="commitment-eg" onclick="useExample(this)">Lock my screen every time I leave my desk</span>
+        <span class="commitment-eg" onclick="useExample(this)">Check the AI tool policy before my next project</span>
+        <span class="commitment-eg" onclick="useExample(this)">Find out who our Privacy Officer is today</span>
+        <span class="commitment-eg" onclick="useExample(this)">Talk to my team about our data storage habits</span>
+        <span class="commitment-eg" onclick="useExample(this)">Double-check email recipients before I send</span>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="go(18)"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Back</button>
+      <button class="btn btn-fill" id="commit-btn" onclick="go(20)">Complete course <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 20 · COMPLETION ══ -->
+<section class="slide completion" data-slide="20" aria-label="Course completion">
+  <div class="completion-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="badge-wrap" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+    <p class="eyebrow" style="color:var(--orange)">Course complete</p>
+    <h2>Training <span class="accent">recorded.</span></h2>
+    <p class="sub">You have completed Australian Privacy Awareness for General Employees.</p>
+
+    <div class="completion-lower">
+      <div id="commitment-display-wrap"></div>
+
+      <div class="completion-statement" role="region" aria-label="Completion statement">
+        <strong>Completion statement:</strong> This record confirms you have completed the Privacy at Work training module and demonstrated application of the Australian Privacy Principles in assessed workplace activities. This does not constitute legal advice. Your obligations under the Privacy Act 1988 are ongoing. If you are unsure about a specific situation, contact your Privacy Officer.
+      </div>
+
+      <div class="takeaways" role="list" aria-label="Key takeaways">
+        <div class="tw" role="listitem"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> LO 1 — Privacy Act 1988 and 13 APPs: you know what they require</div>
+        <div class="tw" role="listitem"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> LO 2 — You can identify personal and sensitive information in your daily work</div>
+        <div class="tw" role="listitem"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> LO 3 — You've applied handling decisions across 6 varied workplace activities</div>
+        <div class="tw" role="listitem"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> LO 4 — You know how and where to report a suspected breach</div>
+      </div>
+    </div>
+
+    <div class="nav" style="justify-content:center">
+      <button class="btn btn-fill" onclick="restart()"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg> Restart</button>
+      <button class="btn btn-ghost" onclick="window.print()"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg> Print record</button>
+      <button class="btn btn-ghost" onclick="window.close()" style="color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.2);" aria-label="Close this window"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Close window</button>
+    </div>
+  </div>
+</section>
+
+
+</main>
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// ICONS
+// ═══════════════════════════════════════════════════════════════════
+const CHK = `<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>`;
+const CRS = `<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+const BACK_SVG = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>`;
+const NEXT_SVG = `<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+
+// ═══════════════════════════════════════════════════════════════════
+// KNOWLEDGE CHECK
+// Correct answers: 1=b, 2=c, 3=b
+// ═══════════════════════════════════════════════════════════════════
+const KC_ANSWERS = { 1:'b', 2:'c', 3:'b' };
+let kcSelections = {};
+
+function kcSelect(q, opt) {
+  kcSelections[q] = opt;
+  // Update visual state
+  const qEl = document.getElementById(`kc-q${q}`);
+  qEl.querySelectorAll('.kc-opt').forEach(el => {
+    el.classList.remove('selected');
+    el.setAttribute('aria-checked','false');
+  });
+  const chosen = qEl.querySelector(`[onclick="kcSelect(${q},'${opt}')"]`);
+  if (chosen) { chosen.classList.add('selected'); chosen.setAttribute('aria-checked','true'); }
+
+  // Enable submit when all 3 answered
+  if (Object.keys(kcSelections).length === 3) {
+    const btn = document.getElementById('kc-submit-btn');
+    btn.disabled = false;
+    btn.style.opacity = '1';
+    btn.style.cursor = 'pointer';
+  }
+}
+
+function kcKey(e, q, opt) {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); kcSelect(q, opt); }
+}
+
+function submitKC() {
+  let correct = 0;
+  [1,2,3].forEach(q => { if (kcSelections[q] === KC_ANSWERS[q]) correct++; });
+  const passed = correct >= 2;
+
+  const heading = document.getElementById('kc-result-heading');
+  const body = document.getElementById('kc-result-body');
+
+  // Each question maps to: explanation text + the content slide to review if wrong
+  const explanations = {
+    1: {
+      q: 'What is NOT personal information?',
+      correct: 'Fully anonymised aggregate statistics — once information can\'t be connected to any individual, it falls outside the Act.',
+      wrong: 'An IP address, employee performance rating, and account number are all personal information under the Act.',
+      reviewSlide: 6,
+      reviewLabel: 'Review: Spot the difference (PI vs Sensitive vs Not PI)'
+    },
+    2: {
+      q: 'Manager requesting health details?',
+      correct: 'Escalate to HR or Privacy Officer — health is sensitive information requiring explicit consent, even when a manager asks.',
+      wrong: 'Sharing leave days only may seem safer, but even this can be sensitive in context. Health data always needs escalation first.',
+      reviewSlide: 8,
+      reviewLabel: 'Review: Your obligations'
+    },
+    3: {
+      q: 'NDB notification timeframe?',
+      correct: '30 days — from the point the organisation is aware of a likely serious data breach.',
+      wrong: '7 days and 90 days are both incorrect. 30 days is the window from the moment you become aware.',
+      reviewSlide: 10,
+      reviewLabel: 'Review: If something goes wrong'
+    }
+  };
+
+  const LINK_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+
+  let rows = '';
+  [1,2,3].forEach(q => {
+    const ok = kcSelections[q] === KC_ANSWERS[q];
+    const exp = explanations[q];
+    const reviewBtn = !ok
+      ? `<button class="kc-review-link" onclick="goReview(${exp.reviewSlide})">${LINK_SVG} ${exp.reviewLabel}</button>`
+      : '';
+    rows += `<div class="result-row col">
+      <div class="result-row-head">
+        <span class="ri ${ok?'ok':'no'}">${ok?CHK:CRS}</span>
+        <strong style="font-size:14px">${exp.q}</strong>
+      </div>
+      <div style="font-size:13px;padding-left:26px;line-height:1.6;color:${ok?'var(--ink3)':'var(--red)'}">
+        ${ok ? exp.correct : exp.wrong}
+      </div>
+      ${!ok ? `<div style="font-size:13px;padding-left:26px;color:var(--green);line-height:1.6">${exp.correct}</div>` : ''}
+      ${reviewBtn ? `<div style="padding-left:26px">${reviewBtn}</div>` : ''}
+    </div>`;
+  });
+
+  if (passed) {
+    heading.textContent = correct === 3 ? 'Full marks — skip the content.' : 'Good to go — skip the content.';
+    body.innerHTML = `
+      <div class="callout success" style="margin-bottom:16px">
+        <div class="cico">${CHK}</div>
+        <div class="callout-body"><p class="ct">${correct}/3 correct — you can skip straight to the assessment</p><p>You clearly have a solid foundation. Head to the assessment, or review any section you're unsure about using the links below.</p></div>
+      </div>
+      ${rows}
+      <div class="nav">
+        <button class="btn btn-ghost" onclick="go(2)">${BACK_SVG} Retake check</button>
+        <button class="btn btn-ghost" onclick="go(4)">Review content first ${NEXT_SVG}</button>
+        <button class="btn btn-fill" onclick="skipToAssessment()">Skip to assessment ${NEXT_SVG}</button>
+      </div>`;
+  } else {
+    heading.textContent = 'Let\'s build on this.';
+    body.innerHTML = `
+      <div class="callout warning" style="margin-bottom:16px">
+        <div class="cico"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <div class="callout-body"><p class="ct">${correct}/3 correct — let's cover the content first</p><p>Use the review links below to jump directly to the sections you need, or work through the full content from the start.</p></div>
+      </div>
+      ${rows}
+      <div class="nav">
+        <button class="btn btn-ghost" onclick="go(2)">${BACK_SVG} Retake check</button>
+        <button class="btn btn-fill" onclick="go(4)">Start from the beginning ${NEXT_SVG}</button>
+      </div>`;
+  }
+  go(3);
+}
+
+// Navigate to a review section; auto-open specific tab if relevant
+function goReview(slide) {
+  go(slide);
+  // For slide 6 (Privacy Act), auto-switch to the Spot the difference tab
+  if (slide === 6) {
+    setTimeout(() => {
+      const btn = document.getElementById('t1d-btn');
+      if (btn) { btn.click(); btn.focus(); }
+    }, 350); // slight delay to let slide animation complete
+  }
+}
+
+function skipToAssessment() {
+  go(11);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ASSESSMENT DATA
+// ═══════════════════════════════════════════════════════════════════
+
+// Activity 1: DRAG TO CLASSIFY
+const CLASSIFY_DATA = {
+  id: 'classify',
+  type: 'classify',
+  title: 'Know your categories.',
+  subtitle: 'For each item below, select the category it belongs to.',
+  lo: 'LO 2',
+  img: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=900&q=75&fit=crop&crop=top',
+  imgCredit: 'Campaign Creators', imgHandle: 'campaign_creators',
+  items: [
+    { id:'c1', text:'Employee salary', category:'personal' },
+    { id:'c2', text:'Medical diagnosis', category:'sensitive' },
+    { id:'c3', text:'Anonymised sales totals', category:'neither' },
+    { id:'c4', text:'Customer email address', category:'personal' },
+    { id:'c5', text:'Religious belief', category:'sensitive' },
+    { id:'c6', text:'Aggregate website traffic', category:'neither' },
+    { id:'c7', text:'IP address', category:'personal' },
+    { id:'c8', text:'Racial or ethnic origin', category:'sensitive' },
+  ],
+  categories: [
+    { id:'personal', label:'Personal information', colour:'orange' },
+    { id:'sensitive', label:'Sensitive information', colour:'red' },
+    { id:'neither', label:'Not personal information', colour:'blue' },
+  ],
+  remediation: 'Personal information is anything that identifies or could identify an individual. Sensitive information is a subset that includes health, biometric, racial, religious and political data — it needs explicit consent. Truly anonymised aggregate data falls outside the Act.'
+};
+
+// Activity 2: DOCUMENT REVIEW
+const DOC_REVIEW_DATA = {
+  id: 'docreview',
+  type: 'docreview',
+  title: 'Spot the issues',
+  subtitle: 'Read this email. Click every part that creates a privacy risk — but not everything highlighted is a problem.',
+  lo: 'LO 3',
+  img: 'https://images.unsplash.com/photo-1596526131083-e8c633064dfd?w=900&q=75&fit=crop&crop=center',
+  imgCredit: 'Austin Distel', imgHandle: 'austindistel',
+  issues: [
+    { id:'i1', text:'Sarah Chen (sarah.chen@gmail.com)', label:'Personal email recipient', explanation:'Sending to a personal Gmail sends identifiable customer data outside secure systems — a clear breach of data handling obligations.' },
+    { id:'i2', text:'diabetes and hypertension', label:'Sensitive health data in email', explanation:'Health information is sensitive under the Act. Emailing a diagnosis — even internally — without explicit need and security measures is a breach.' },
+    { id:'i3', text:'his Medicare number is 2756 8821 3', label:'Medicare number in plain text', explanation:'Medicare numbers are government identifiers with special protections under APP 9. Sending them in plain email text is never acceptable.' },
+  ],
+  decoys: [
+    { id:'d1', text:'Account #7734', label:'Account reference number', explanation:'Account numbers used for internal case management are not personal information in this context — they identify a transaction, not the individual, and are appropriate in an internal case note.' },
+    { id:'d2', text:'67-year-old male', label:'Age and gender', explanation:'Age and gender are personal information, but in this internal case note they are relevant to the complaint being handled and collected for a legitimate purpose. The real issue is the channel — not this detail alone.' },
+    { id:'d3', text:'james.miller@company.com.au', label:'Sender\'s work email', explanation:'Using your own work email address to send is expected and appropriate — it\'s the recipient\'s personal Gmail that creates the risk, not the sender\'s address.' },
+  ],
+  remediation: 'This email contained three distinct privacy violations: an insecure recipient channel, sensitive health information, and a protected government identifier. The account number, age/gender, and sender address were not violations in themselves — the channel and content combination is what created the risk.'
+};
+
+// Activities 3–6: MCQ SCENARIOS
+const MCQ_SCENARIOS = [
+  {
+    id: 'branch1', type: 'branch',
+    title: 'Wrong recipient — what now?',
+    lo: 'LO 4',
+    img: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=75&fit=crop&crop=center',
+    imgCredit: 'Wan San Yip', imgHandle: 'wanmingtan',
+    situation: 'You just sent an email containing a customer\'s name, address and complaint details. You immediately realise you sent it to the wrong person — a colleague at a different company. Your inbox shows the send completed 30 seconds ago.',
+    decisions: [
+      {
+        label: 'First decision',
+        question: 'What do you do first?',
+        options: [
+          { text: 'Call the recipient and ask them to delete it', next: 'warn', consequence: { type:'warn', text:'Calling first and asking for deletion is a reasonable instinct — but it\'s not enough on its own. You\'ve already disclosed personal information without authorisation. This still needs to be reported internally, regardless of what the recipient does.' } },
+          { text: 'Report it to your manager and privacy contact immediately', next: 'good', consequence: { type:'good', text:'Correct first move. Reporting immediately activates your organisation\'s incident response — they can assess notification obligations, attempt email recall, and document the breach. The clock under the NDB scheme starts now.' } },
+          { text: 'Wait to see if the recipient responds or does anything with it', next: 'bad', consequence: { type:'bad', text:'Waiting is the worst option. The NDB scheme clock starts when you become aware of a likely breach — not when harm occurs. Delay compounds legal risk and makes remediation harder.' } },
+        ]
+      },
+      {
+        label: 'Second decision',
+        question: 'Your manager is notified. They ask if you should tell the affected customer now. What\'s right?',
+        options: [
+          { text: 'Yes — tell the customer immediately before anyone else is involved', next: null, consequence: { type:'warn', text:'The impulse is understandable, but notification should be coordinated through your organisation\'s Privacy Officer, not improvised. Premature contact could create confusion, legal risk, or duplicate notifications.' } },
+          { text: 'Let the Privacy Officer assess first, then notify the customer appropriately', next: null, consequence: { type:'good', text:'Correct. Under the NDB scheme, the Privacy Officer assesses whether the breach is likely to cause serious harm, which determines notification requirements. Coordinated notification protects everyone.' } },
+          { text: 'No notification needed if the recipient promised to delete it', next: null, consequence: { type:'bad', text:'An informal promise to delete doesn\'t resolve the disclosure — and can\'t be verified. The breach has occurred. Assessment and potential notification are still required.' } },
+        ]
+      }
+    ],
+    remediation: 'Wrong-recipient sends are one of the most commonly reported breaches in Australia. Key principles: report immediately, don\'t self-remediate, let your Privacy Officer coordinate any customer notification.'
+  },
+  {
+    id:'sc4', type:'mcq',
+    context:'Teams screenshot',
+    lo:'LO 3',
+    img:'https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?w=900&q=75&fit=crop&crop=center',
+    imgCredit:'Alex Kotliarskyi', imgHandle:'frantic',
+    situation:'A project team member screenshots a customer support chat — including the customer\'s name, address and complaint details — and shares it in a Teams channel with 30 members to "show an example of a good resolution."',
+    options:[
+      { text:'Fine — it\'s internal and the point is to share good practice.', correct:false },
+      { text:'Fine — Teams is a secure platform, so the data stays inside the organisation.', correct:false },
+      { text:'Not OK — personal data should be anonymised before sharing, regardless of intent or channel.', correct:true },
+    ],
+    remediation:'Internal doesn\'t mean unlimited. APP 6 requires that information is only used for the purpose it was originally collected — the customer gave their details to resolve a complaint, not to feature in a training example. Anonymise first, always.'
+  },
+  {
+    id:'sc5', type:'mcq',
+    context:'AI tool paste-in',
+    lo:'LO 3',
+    img:'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=900&q=75&fit=crop&crop=center',
+    imgCredit:'Campaign Creators', imgHandle:'campaign_creators',
+    situation:'You\'re drafting a response to a complex customer complaint. To save time, you paste the full customer record — name, contact details, account history, and a noted medical condition — into a public AI writing tool to help draft the reply.',
+    options:[
+      { text:'Only if the AI tool is on the approved software list for sensitive data use.', correct:true },
+      { text:'Yes — you\'re not sharing it with a person, just a tool, so no privacy issue arises.', correct:false },
+      { text:'Yes, as long as you don\'t save the output or share the prompt with anyone.', correct:false },
+    ],
+    remediation:'Pasting personal data into any AI tool — including tools with "private" modes — transmits it to third-party infrastructure. Many tools log prompts, use them for training, or store them in ways your organisation can\'t control. The fact that it\'s a tool, not a person, doesn\'t reduce the disclosure risk. Check your AI policy first.'
+  },
+  {
+    id:'sc6', type:'mcq',
+    context:'Public place / mobile',
+    lo:'LO 3',
+    img:'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=900&q=75&fit=crop&crop=center',
+    imgCredit:'John Schnobrich', imgHandle:'johnschno',
+    situation:'You\'re on a train reviewing a report containing employee performance ratings and salary figures. The carriage is crowded and the person next to you could easily read your screen. Your device is encrypted and password-protected.',
+    options:[
+      { text:'Minimise the document and wait until you\'re in a private environment.', correct:true },
+      { text:'Continue — the data is secure on the device, so there\'s no actual breach.', correct:false },
+      { text:'Angle the screen slightly so it\'s harder to read and keep working.', correct:false },
+    ],
+    remediation:'Device encryption protects data if the device is lost or stolen — it does nothing about shoulder-surfing. APP 11 requires taking reasonable steps to protect personal information from misuse, including unauthorised access by bystanders. "Reasonable steps" in a crowded train means closing the file.'
+  }
+];
+
+// Full ordered assessment list
+const ASSESSMENTS = [CLASSIFY_DATA, DOC_REVIEW_DATA, ...MCQ_SCENARIOS];
+const TOTAL_ASSESS = ASSESSMENTS.length; // 6
+const PASS_THRESHOLD = 4;
+const TOTAL_SLIDES = 20;
+
+// ═══════════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════════
+let currentSlide = 1;
+let assessAnswers = {}; // { id: { correct: bool, ... } }
+let retryMode = false;
+let shuffledMCQ = {}; // shuffled options per MCQ id
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function initShuffles() {
+  shuffledMCQ = {};
+  ASSESSMENTS.forEach(a => {
+    if (a.type === 'mcq') shuffledMCQ[a.id] = shuffle(a.options);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// CHAPTERS — maps slide ranges to labels
+// ═══════════════════════════════════════════════════════════════════
+const CHAPTERS = [
+  { label: 'Intro',      first: 1,  last: 3  },
+  { label: 'Objectives', first: 4,  last: 4  },
+  { label: 'The Law',    first: 5,  last: 6  },
+  { label: 'Your Role',  first: 7,  last: 8  },
+  { label: 'In Practice',first: 9,  last: 10 },
+  { label: 'Assessment', first: 11, last: 17 },
+  { label: 'Wrap-up',    first: 18, last: 20 },
+];
+
+function renderChapters(n) {
+  const el = document.getElementById('chapters');
+  if (!el) return;
+  const isFinal = n === TOTAL_SLIDES;
+  el.innerHTML = CHAPTERS.map(ch => {
+    const isDone   = n > ch.last || isFinal;
+    const isActive = n >= ch.first && n <= ch.last && !isFinal;
+    const progress = isActive
+      ? Math.round(((n - ch.first) / (ch.last - ch.first + 1)) * 100)
+      : 0;
+    const cls = isDone ? 'chapter done' : isActive ? 'chapter active' : 'chapter';
+    return `<div class="${cls}">
+      <div class="chapter-tooltip">${ch.label}</div>
+      <div class="chapter-bar"><div class="chapter-bar-fill" style="width:${isDone?100:progress}%"></div></div>
+    </div>`;
+  }).join('');
+}
+function go(n) {
+  document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+  const t = document.querySelector(`[data-slide="${n}"]`);
+  if (!t) return;
+  t.classList.add('active');
+  window.scrollTo(0,0);
+  currentSlide = n;
+
+  document.getElementById('sc').textContent = n+' / '+TOTAL_SLIDES;
+  const pb = document.getElementById('chapters');
+  pb.setAttribute('aria-valuenow', n);
+  pb.setAttribute('aria-label', `Screen ${n} of ${TOTAL_SLIDES} — ${CHAPTERS.find(c=>n>=c.first&&n<=c.last)?.label||''}`);
+  renderChapters(n);
+  announce(`Screen ${n} of ${TOTAL_SLIDES}`);
+
+  if (n >= 11 && n <= 16) buildAssessment(n - 10);
+  if (n === 17) buildResults();
+  if (n === 20) {
+    buildCommitmentDisplay();
+    if (typeof SCORM !== 'undefined') SCORM.complete();
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ASSESSMENT BUILDER DISPATCHER
+// ═══════════════════════════════════════════════════════════════════
+function buildAssessment(idx) {
+  const a = ASSESSMENTS[idx-1];
+  const el = document.getElementById(`asc-${idx}`);
+  if (!el) return;
+
+  if (a.type === 'classify')  buildClassify(a, idx, el);
+  else if (a.type === 'docreview') buildDocReview(a, idx, el);
+  else if (a.type === 'branch') buildBranch(a, idx, el);
+  else buildMCQ(a, idx, el);
+}
+
+// Progress dots helper
+function progressDots(curIdx) {
+  let html = '<div class="assess-progress" role="status" aria-label="Assessment progress"><div class="assess-dots" role="presentation">';
+  for (let i = 0; i < TOTAL_ASSESS; i++) {
+    const a = ASSESSMENTS[i];
+    const ans = assessAnswers[a.id];
+    let cls = 'assess-dot';
+    if (i+1 === curIdx) cls += ' cur';
+    else if (ans) cls += ans.correct ? ' ok' : ' no';
+    html += `<div class="${cls}"></div>`;
+  }
+  html += `</div><span class="assess-label">${Object.keys(assessAnswers).length} of ${TOTAL_ASSESS} answered</span></div>`;
+  return html;
+}
+
+function prevNext(idx, showNext) {
+  const prev = idx > 1 ? 10+idx : 10;
+  const next = idx < 6 ? 11+idx : 17;
+  const nextLabel = idx < 6 ? 'Next activity' : 'See results';
+  return `<div class="nav" id="anav-${idx}" ${showNext?'':'style="display:none"'}>
+    <button class="btn btn-ghost" onclick="go(${prev})">${BACK_SVG} Back</button>
+    <button class="btn btn-fill" onclick="go(${next})">${nextLabel} ${NEXT_SVG}</button>
+  </div>`;
+}
+
+function scenarioImgHtml(a) {
+  return `<div class="scenario-img"><img src="${a.img}" alt="${a.context||a.title} scenario" loading="lazy"><div class="scenario-img-label">${a.context||a.title}</div></div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// CLASSIFY — card-by-card button select
+// ═══════════════════════════════════════════════════════════════════
+let classifyAnswers  = {}; // itemId -> categoryId chosen
+let classifyLocked   = false;
+let classifyItemIdx  = 0;  // which item is currently shown (0-based)
+
+function buildClassify(a, idx, el) {
+  const answered = assessAnswers[a.id];
+  classifyLocked = !!answered;
+
+  // If already answered, show full summary; otherwise show current card
+  const html = classifyLocked ? buildClassifySummary(a, idx) : buildClassifyCard(a, idx);
+
+  el.innerHTML = `<div class="wrap">
+    ${progressDots(idx)}
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <p class="eyebrow" style="margin-bottom:0">Activity ${idx} of ${TOTAL_ASSESS} — Classify</p>
+      <span style="font-size:11px;font-weight:700;color:var(--orange);background:var(--orange-soft);padding:2px 8px;border-radius:4px">${a.lo}</span>
+    </div>
+    <h2>${a.title}</h2>
+    <p class="sub" style="margin-bottom:16px">${a.subtitle}</p>
+    ${html}
+  </div>`;
+}
+
+function buildClassifyCard(a, idx) {
+  const item = a.items[classifyItemIdx];
+  const chosen = classifyAnswers[item.id];
+  const total  = a.items.length;
+
+  // Progress bar
+  let progDots = '';
+  for (let i = 0; i < total; i++) {
+    const it = a.items[i];
+    let cls = 'classify-prog-dot';
+    if (i < classifyItemIdx) cls += classifyAnswers[it.id] === it.category ? ' done-ok' : ' done-no';
+    else if (i === classifyItemIdx) cls += ' current';
+    progDots += `<div class="${cls}"></div>`;
+  }
+
+  // Category buttons
+  const btnHtml = a.categories.map(cat => {
+    let cls = 'classify-cat-btn';
+    if (chosen) {
+      if (cat.id === item.category) cls += ' ans-correct';
+      else if (cat.id === chosen)   cls += ' ans-wrong';
+    }
+    return `<button class="${cls}" onclick="classifySelect('${item.id}','${cat.id}',${idx})" ${chosen ? 'disabled' : ''} aria-pressed="${chosen === cat.id}">
+      <div class="classify-cat-dot ${cat.colour}"></div>
+      ${cat.label}
+    </button>`;
+  }).join('');
+
+  // Per-item feedback
+  let feedbackHtml = '';
+  if (chosen) {
+    const correct = chosen === item.category;
+    const correctLabel = a.categories.find(c => c.id === item.category)?.label || '';
+    feedbackHtml = `<div class="classify-item-feedback show ${correct ? 'ok' : 'no'}">
+      ${correct ? CHK : CRS}
+      <div>${correct ? 'Correct.' : `Not quite — this is <strong>${correctLabel}</strong>.`}</div>
+    </div>`;
+  }
+
+  // Next / finish button
+  const isLast   = classifyItemIdx >= total - 1;
+  const allDone  = a.items.every(it => classifyAnswers[it.id]);
+  let nextBtn = '';
+  if (chosen && !isLast) {
+    nextBtn = `<button class="btn btn-fill" onclick="classifyNext(${idx})">Next item ${NEXT_SVG}</button>`;
+  } else if (chosen && isLast && allDone) {
+    nextBtn = `<button class="btn btn-fill" onclick="submitClassify('${a.id}',${idx})">Check results ${NEXT_SVG}</button>`;
+  }
+
+  return `
+    <div class="classify-progress" role="progressbar" aria-label="Item ${classifyItemIdx+1} of ${total}">${progDots}</div>
+    <div class="classify-card">
+      <div class="classify-card-counter">Item ${classifyItemIdx + 1} of ${total}</div>
+      <div class="classify-card-item">${item.text}</div>
+    </div>
+    <div class="classify-cat-btns" role="radiogroup" aria-label="Choose a category">${btnHtml}</div>
+    ${feedbackHtml}
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="${classifyItemIdx > 0 ? `classifyBack(${idx})` : `go(${idx>1?10+idx:10})`}">${BACK_SVG} ${classifyItemIdx > 0 ? 'Previous' : 'Back'}</button>
+      ${nextBtn}
+    </div>`;
+}
+
+function buildClassifySummary(a, idx) {
+  const total   = a.items.length;
+  const correct = a.items.filter(it => classifyAnswers[it.id] === it.category).length;
+
+  const rows = a.items.map(it => {
+    const ok       = classifyAnswers[it.id] === it.category;
+    const chosen   = a.categories.find(c => c.id === classifyAnswers[it.id])?.label || '—';
+    const correct  = a.categories.find(c => c.id === it.category)?.label || '—';
+    return `<div class="result-row" style="flex-direction:column;gap:4px;align-items:stretch">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="ri ${ok?'ok':'no'}">${ok?CHK:CRS}</span>
+        <strong style="font-size:14px">${it.text}</strong>
+      </div>
+      ${!ok ? `<div style="font-size:13px;padding-left:26px;color:var(--ink3)">You chose: <span style="color:var(--red)">${chosen}</span> · Correct: <span style="color:var(--green)">${correct}</span></div>` : ''}
+    </div>`;
+  }).join('');
+
+  const overall = assessAnswers[a.id];
+  const fbHtml  = `<div class="feedback show ${overall?.correct?'ok':'no'}" role="alert">
+    ${overall?.correct?CHK:CRS}
+    <div>${correct}/${total} correct. ${overall?.correct ? 'Well done.' : 'Review the items above.'}
+      <div class="remed">${a.remediation}</div>
+    </div>
+  </div>`;
+
+  return `
+    ${rows}
+    ${fbHtml}
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="go(${idx>1?10+idx:10})">${BACK_SVG} Back</button>
+      <button class="btn btn-fill" onclick="go(${idx<6?11+idx:17})">${idx<6?'Next activity':'See results'} ${NEXT_SVG}</button>
+    </div>`;
+}
+
+function classifySelect(itemId, catId, slideIdx) {
+  if (classifyLocked || classifyAnswers[itemId]) return;
+  classifyAnswers[itemId] = catId;
+  const item = CLASSIFY_DATA.items.find(i => i.id === itemId);
+  const correct = catId === item?.category;
+  announce(correct ? 'Correct.' : `Not quite. The correct category is ${CLASSIFY_DATA.categories.find(c=>c.id===item?.category)?.label}.`);
+  buildAssessment(slideIdx);
+}
+
+function classifyNext(slideIdx) {
+  classifyItemIdx = Math.min(classifyItemIdx + 1, CLASSIFY_DATA.items.length - 1);
+  buildAssessment(slideIdx);
+}
+
+function classifyBack(slideIdx) {
+  classifyItemIdx = Math.max(classifyItemIdx - 1, 0);
+  buildAssessment(slideIdx);
+}
+
+function submitClassify(id, idx) {
+  const a = CLASSIFY_DATA;
+  const correct = a.items.every(it => classifyAnswers[it.id] === it.category);
+  assessAnswers[id] = { correct };
+  classifyLocked = true;
+  buildAssessment(idx);
+  announce(correct ? 'All items classified correctly.' : 'Some items incorrectly classified. Read the feedback.');
+}
+
+
+// ═══════════════════════════════════════════════════════════════════
+// DOCUMENT REVIEW
+// ═══════════════════════════════════════════════════════════════════
+let docFound = new Set();
+let docDecoyClicked = new Set();
+let docLocked = false;
+let docLastDecoy = null; // id of most recently clicked decoy for inline feedback
+
+function buildDocReview(a, idx, el) {
+  const answered = assessAnswers[a.id];
+  docLocked = !!answered;
+
+  // Helper — builds a hotspot span for either a real issue or a decoy
+  function hs(id, text, isDecoy) {
+    const wasFound  = docFound.has(id);
+    const wasDecoy  = docDecoyClicked.has(id);
+    let cls = '';
+    if (docLocked) {
+      cls = isDecoy
+        ? (wasDecoy ? ' decoy-clicked' : ' decoy-reveal')
+        : (wasFound  ? ' correct-reveal' : ' missed');
+    } else {
+      if (!isDecoy && wasFound) cls = ' found';
+      if (isDecoy  && wasDecoy) cls = ' decoy-clicked';
+    }
+    const fn = isDecoy ? `clickDecoy('${id}',${idx})` : `clickHotspot('${id}',${idx})`;
+    return `<span class="hotspot${cls}" onclick="${fn}" tabindex="0" role="button" aria-pressed="${wasFound||wasDecoy}">${text}</span>`;
+  }
+
+  const body = `<p>Hi ${hs('i1', a.issues[0].text, false)},</p>
+<p>Following up on the complaint you raised — I've looked into ${hs('d1','Account #7734',true)}. The customer is a ${hs('d2','67-year-old male',true)} with ${hs('i2', a.issues[1].text, false)}, which is noted in his file. For verification purposes, ${hs('i3', a.issues[2].text, false)}.</p>
+<p>Can you review and advise how to proceed? Thanks.</p>`;
+
+  // Issue tags — real issues + decoys clicked
+  let foundTagsHtml = '';
+  a.issues.forEach(issue => {
+    const wasFound = docFound.has(issue.id);
+    if (wasFound || docLocked) {
+      const cls = docLocked ? (wasFound ? 'found-ok' : 'found-no') : 'found-ok';
+      foundTagsHtml += `<div class="issue-tag ${cls}">${wasFound?CHK:CRS} ${issue.label}</div>`;
+    }
+  });
+  (a.decoys||[]).forEach(decoy => {
+    if (docDecoyClicked.has(decoy.id)) {
+      foundTagsHtml += `<div class="issue-tag" style="background:var(--blue-soft);border-color:var(--blue-b);color:var(--blue)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        Not an issue: ${decoy.label}
+      </div>`;
+    }
+  });
+
+  // Inline decoy feedback — shows explanation for most recently clicked decoy
+  let decoyFeedbackHtml = '';
+  if (docLastDecoy && !docLocked) {
+    const decoy = (a.decoys||[]).find(d => d.id === docLastDecoy);
+    if (decoy) {
+      decoyFeedbackHtml = `<div class="feedback show" style="background:var(--blue-soft);border:1px solid var(--blue-b);color:var(--blue);margin-bottom:10px" role="alert">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <div><strong>Not a privacy issue.</strong><div class="remed" style="border-color:var(--blue-b)">${decoy.explanation}</div></div>
+      </div>`;
+    }
+  }
+
+  let feedbackHtml = '';
+  if (answered) {
+    const foundCount = answered.found?.size || 0;
+    feedbackHtml = `<div class="feedback show ${answered.correct?'ok':'no'}" role="alert">
+      ${answered.correct?CHK:CRS}
+      <div>${answered.correct ? `All ${a.issues.length} issues found.` : `Found ${foundCount} of ${a.issues.length} issues.`}
+        <div class="remed">${a.remediation}</div>
+      </div>
+    </div>`;
+  }
+
+  el.innerHTML = `<div class="wrap wide">
+    ${progressDots(idx)}
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <p class="eyebrow" style="margin-bottom:0">Activity ${idx} of ${TOTAL_ASSESS} — Document Review</p>
+      <span style="font-size:11px;font-weight:700;color:var(--orange);background:var(--orange-soft);padding:2px 8px;border-radius:4px">${a.lo}</span>
+    </div>
+    <h2>${a.title}</h2>
+    <p class="sub" style="margin-bottom:16px">${a.subtitle} There are <strong>${a.issues.length} real issues</strong> — not everything highlighted is a problem.</p>
+    <div class="doc-review-wrap">
+      <div class="mock-email">
+        <div class="email-header">
+          <div class="email-field"><span class="email-field-label">From:</span><span class="email-field-val">${hs('d3','james.miller@company.com.au',true)}</span></div>
+          <div class="email-field"><span class="email-field-label">To:</span><span class="email-field-val">sarah.chen@gmail.com</span></div>
+          <div class="email-field"><span class="email-field-label">Date:</span><span class="email-field-val">Monday, 9:42am</span></div>
+          <div class="email-subject">Re: Customer complaint — Account #7734</div>
+        </div>
+        <div class="email-body">${body}</div>
+      </div>
+      ${docFound.size > 0 || docDecoyClicked.size > 0 || docLocked ? `<div class="doc-issues-found">${foundTagsHtml}</div>` : ''}
+      ${decoyFeedbackHtml}
+    </div>
+    ${feedbackHtml}
+    <div class="nav" id="anav-${idx}">
+      <button class="btn btn-ghost" onclick="go(${idx>1?10+idx:10})">${BACK_SVG} Back</button>
+      ${!answered && docFound.size > 0 ? `<button class="btn btn-fill" onclick="submitDocReview('${a.id}',${idx})">Submit (${docFound.size}/${a.issues.length} found) ${NEXT_SVG}</button>` : ''}
+      ${answered ? `<button class="btn btn-fill" onclick="go(${idx<6?11+idx:17})">${idx<6?'Next activity':'See results'} ${NEXT_SVG}</button>` : ''}
+    </div>
+  </div>`;
+}
+
+function clickHotspot(issueId, idx) {
+  if (docLocked) return;
+  docFound.add(issueId);
+  docLastDecoy = null;
+  buildAssessment(idx);
+  announce(`Privacy issue identified: ${DOC_REVIEW_DATA.issues.find(i=>i.id===issueId)?.label}`);
+}
+
+function clickDecoy(decoyId, idx) {
+  if (docLocked) return;
+  docDecoyClicked.add(decoyId);
+  docLastDecoy = decoyId;
+  buildAssessment(idx);
+  const label = DOC_REVIEW_DATA.decoys?.find(d=>d.id===decoyId)?.label || '';
+  announce(`Not a privacy issue: ${label}`);
+}
+
+function submitDocReview(id, idx) {
+  const correct = docFound.size >= DOC_REVIEW_DATA.issues.length;
+  assessAnswers[id] = { correct, found: new Set(docFound) };
+  docLocked = true;
+  docLastDecoy = null;
+  buildAssessment(idx);
+  announce(correct ? 'All issues found.' : `Found ${docFound.size} of ${DOC_REVIEW_DATA.issues.length} issues.`);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// BRANCHING TREE
+// ═══════════════════════════════════════════════════════════════════
+let branchDecisions = {}; // decisionIdx -> choiceIdx
+let branchLocked = false;
+
+function buildBranch(a, idx, el) {
+  const answered = assessAnswers[a.id];
+  branchLocked = !!answered;
+
+  let decisionsHtml = '';
+  let currentDecisionIdx = 0;
+
+  // Show decisions sequentially
+  a.decisions.forEach((dec, di) => {
+    const chosen = branchDecisions[di];
+    const isVisible = di === 0 || branchDecisions[di-1] !== undefined;
+    if (!isVisible) return;
+
+    let optionsHtml = '';
+    dec.options.forEach((opt, oi) => {
+      const isChosen = chosen === oi;
+      const disabled = chosen !== undefined || branchLocked;
+      const cls = isChosen ? ' chosen' : '';
+      optionsHtml += `<button class="branch-btn${cls}" onclick="branchChoose(${di},${oi},'${a.id}',${idx},${a.decisions.length})" ${disabled?'disabled':''}>${opt.text}</button>`;
+    });
+
+    let consequenceHtml = '';
+    if (chosen !== undefined) {
+      const cons = dec.options[chosen].consequence;
+      consequenceHtml = `<div class="branch-consequence show ${cons.type}" role="alert">${cons.text}</div>`;
+    }
+
+    decisionsHtml += `<div class="branch-decision">
+      <div class="branch-decision-label">${dec.label}</div>
+      <p class="q-label" style="margin-bottom:10px">${dec.question}</p>
+      <div class="branch-choices">${optionsHtml}</div>
+      ${consequenceHtml}
+    </div>`;
+
+    if (chosen !== undefined) currentDecisionIdx = di + 1;
+  });
+
+  // Overall feedback
+  let overallFeedback = '';
+  if (answered) {
+    const allGood = Object.values(branchDecisions).every((ci, di) => a.decisions[di]?.options[ci]?.consequence?.type === 'good');
+    overallFeedback = `<div class="feedback show ${answered.correct?'ok':'no'}" role="alert">${answered.correct?CHK:CRS}<div>${answered.correct?'Both decisions handled correctly.':'At least one decision could have been better.'}<div class="remed">${a.remediation}</div></div></div>`;
+  }
+
+  const pathDots = a.decisions.map((_, di) => {
+    const c = branchDecisions[di];
+    let cls = 'branch-path-dot';
+    if (c !== undefined) cls += a.decisions[di].options[c].consequence.type === 'good' ? ' done-ok' : ' done-no';
+    else if (di === currentDecisionIdx) cls += ' active';
+    return `<div class="${cls}"></div>`;
+  }).join('');
+
+  const showNext = !!answered;
+
+  el.innerHTML = `<div class="wrap">
+    ${progressDots(idx)}
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <p class="eyebrow" style="margin-bottom:0">Activity ${idx} of ${TOTAL_ASSESS} — Branching Scenario</p>
+      <span style="font-size:11px;font-weight:700;color:var(--orange);background:var(--orange-soft);padding:2px 8px;border-radius:4px">${a.lo}</span>
+    </div>
+    <h2>${a.title}</h2>
+    <div class="branch-scene"><p class="eyebrow">The situation</p><p>${a.situation}</p></div>
+    <div class="branch-path-indicator" aria-label="Decision path">${pathDots}</div>
+    ${decisionsHtml}
+    ${overallFeedback}
+    <div class="nav" ${showNext?'':'style="display:none"'} id="anav-${idx}">
+      <button class="btn btn-ghost" onclick="go(${idx>1?10+idx:10})">${BACK_SVG} Back</button>
+      <button class="btn btn-fill" onclick="go(${idx<6?11+idx:17})">${idx<6?'Next activity':'See results'} ${NEXT_SVG}</button>
+    </div>
+  </div>`;
+}
+
+function branchChoose(di, ci, aId, slideIdx, totalDecisions) {
+  branchDecisions[di] = ci;
+  // If all decisions made, score it
+  if (Object.keys(branchDecisions).length >= totalDecisions) {
+    const allGood = Object.values(branchDecisions).every((choiceIdx, decIdx) =>
+      MCQ_SCENARIOS[0].decisions[decIdx]?.options[choiceIdx]?.consequence?.type === 'good'
+    );
+    assessAnswers[aId] = { correct: allGood };
+    branchLocked = true;
+    announce(allGood ? 'Both decisions handled correctly.' : 'One or more decisions could have been better. Read the feedback.');
+  }
+  buildAssessment(slideIdx);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// MCQ SCENARIOS
+// ═══════════════════════════════════════════════════════════════════
+function buildMCQ(a, idx, el) {
+  const answered = assessAnswers[a.id];
+  const opts = shuffledMCQ[a.id] || a.options;
+
+  let choicesHtml = opts.map((opt, oi) => {
+    let cls = 'choice';
+    if (answered) {
+      if (opt.correct) cls += ' ok';
+      else if (answered.choiceIdx === oi) cls += ' no';
+    }
+    return `<button class="${cls}" role="radio" aria-checked="${answered&&answered.choiceIdx===oi?'true':'false'}" onclick="answerMCQ('${a.id}',${oi},${opt.correct},${idx})" ${answered?'disabled':''}>${opt.text}</button>`;
+  }).join('');
+
+  const feedbackHtml = answered ? `<div class="feedback show ${answered.correct?'ok':'no'}" role="alert" aria-live="assertive">${answered.correct?CHK:CRS}<div>${answered.correct?'Correct.':'Not quite.'}<div class="remed">${a.remediation}</div></div></div>` : '';
+
+  el.innerHTML = `<div class="wrap">
+    ${progressDots(idx)}
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <p class="eyebrow" style="margin-bottom:0">Activity ${idx} of ${TOTAL_ASSESS}</p>
+      <span style="font-size:11px;font-weight:700;color:var(--orange);background:var(--orange-soft);padding:2px 8px;border-radius:4px">${a.lo}</span>
+    </div>
+    <h2>What would <span class="accent">you</span> do?</h2>
+    <div class="scenario-shell">${scenarioImgHtml(a)}<div class="scenario-body"><p class="eyebrow">The situation</p><p>${a.situation}</p></div></div>
+    <p class="q-label">What's the right call?</p>
+    <div class="choices" role="radiogroup" aria-label="Answer options">${choicesHtml}</div>
+    ${feedbackHtml}
+    ${prevNext(idx, !!answered)}
+    <p style="font-size:10px;color:var(--ink3);margin-top:8px">Photo: <a href="https://unsplash.com/@${a.imgHandle}?utm_source=privacy_course&utm_medium=referral" style="color:var(--ink3)" target="_blank">${a.imgCredit}</a> / Unsplash</p>
+  </div>`;
+}
+
+function answerMCQ(id, choiceIdx, correct, slideIdx) {
+  if (assessAnswers[id]) return;
+  assessAnswers[id] = { correct, choiceIdx };
+  buildAssessment(slideIdx);
+  const nav = document.getElementById(`anav-${slideIdx}`);
+  if (nav) setTimeout(() => { nav.style.display='flex'; nav.scrollIntoView({behavior:'smooth',block:'nearest'}); nav.querySelector('button')?.focus(); }, 100);
+  announce(correct ? 'Correct answer.' : 'Incorrect. Read the feedback below.');
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// RESULTS
+// ═══════════════════════════════════════════════════════════════════
+function buildResults() {
+  const ids = ASSESSMENTS.map(a=>a.id);
+  const correct = ids.filter(id => assessAnswers[id]?.correct).length;
+  const total = ids.length;
+  const pct = Math.round((correct/total)*100);
+  const passed = correct >= PASS_THRESHOLD;
+
+  const arc = document.getElementById('score-arc');
+  if (arc) {
+    arc.style.strokeDashoffset = 326.7 - (326.7*pct/100);
+    arc.classList.add(passed?'pass':'fail');
+  }
+  const pctEl = document.getElementById('score-pct');
+  if (pctEl) { pctEl.textContent = pct+'%'; pctEl.className = 'score-pct '+(passed?'pass-c':'fail-c'); }
+
+  document.getElementById('res-eyebrow').textContent = passed ? 'Assessment passed' : 'Assessment — not yet passed';
+  document.getElementById('res-heading').textContent = passed ? 'Well done.' : 'Almost there.';
+  document.getElementById('res-summary').textContent = `${correct} out of ${total} correct${passed?' — pass threshold met.':' — need '+PASS_THRESHOLD+' to pass.'}`;
+  document.getElementById('res-detail').textContent = passed ? 'Your completion has been recorded.' : 'Review the feedback and try again.';
+
+  const rows = document.getElementById('res-rows');
+  if (rows) {
+    rows.innerHTML = ASSESSMENTS.map(a => {
+      const ok = assessAnswers[a.id]?.correct;
+      return `<div class="result-row"><span class="ri ${ok?'ok':'no'}">${ok?CHK:CRS}</span><span><strong>${a.title||a.context}</strong> — ${ok?'Correct':'Needs review'}</span></div>`;
+    }).join('');
+  }
+
+  const nav = document.getElementById('res-nav');
+  if (nav) {
+    if (passed) {
+      nav.innerHTML = `<button class="btn btn-fill" onclick="go(18)">Continue ${NEXT_SVG}</button>`;
+    } else if (!retryMode) {
+      nav.innerHTML = `
+        <button class="btn btn-retry" onclick="startRetry()"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10"/></svg> Retry assessment</button>
+        <button class="btn btn-ghost" onclick="go(18)">Continue anyway ${NEXT_SVG}</button>`;
+    } else {
+      nav.innerHTML = `<button class="btn btn-ghost" onclick="go(18)">Continue ${NEXT_SVG}</button>`;
+    }
+  }
+  announce(`Results: ${correct} of ${total} correct. ${passed?'Passed.':'Not yet passed.'}`);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// RETRY
+// ═══════════════════════════════════════════════════════════════════
+function startRetry() {
+  retryMode = true;
+  ASSESSMENTS.forEach(a => {
+    if (assessAnswers[a.id] && !assessAnswers[a.id].correct) {
+      delete assessAnswers[a.id];
+      if (a.type === 'mcq') shuffledMCQ[a.id] = shuffle(a.options);
+      if (a.type === 'classify') { classifyAnswers = {}; classifyLocked = false; classifyItemIdx = 0; }
+      if (a.type === 'docreview') { docFound = new Set(); docDecoyClicked = new Set(); docLastDecoy = null; docLocked = false; }
+      if (a.type === 'branch') { branchDecisions = {}; branchLocked = false; }
+    }
+  });
+  // Rebuild all assessment slides
+  for (let i=1;i<=6;i++) { const e=document.getElementById(`asc-${i}`); if(e) e.innerHTML=''; }
+  go(11);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// COMMITMENT
+// ═══════════════════════════════════════════════════════════════════
+function onCommitmentInput() {
+  // Always enabled — commitment is optional/unscored
+}
+
+function useExample(el) {
+  document.getElementById('commitment-text').value = el.textContent;
+}
+
+function buildCommitmentDisplay() {
+  const text = document.getElementById('commitment-text')?.value?.trim();
+  const wrap = document.getElementById('commitment-display-wrap');
+  if (wrap && text) {
+    wrap.innerHTML = `<div class="commitment-display"><span style="color:var(--orange);font-style:normal;font-size:18px;line-height:1;vertical-align:-2px;margin-right:4px">"</span>${text}<span style="color:var(--orange);font-style:normal;font-size:18px;line-height:1;vertical-align:-2px;margin-left:3px">"</span></div>`;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════════════════════════════════
+function tabSwitch(btn, id) {
+  const container = btn.closest('[role="tablist"]').parentElement;
+  container.querySelectorAll('[role="tab"]').forEach(b => b.setAttribute('aria-selected','false'));
+  btn.setAttribute('aria-selected','true');
+  container.querySelectorAll('[role="tabpanel"]').forEach(p => p.classList.remove('on'));
+  const panel = document.getElementById(id);
+  if (panel) panel.classList.add('on');
+}
+
+document.addEventListener('keydown', e => {
+  if (e.target.getAttribute('role')==='tab') {
+    const tabs = [...e.target.closest('[role="tablist"]').querySelectorAll('[role="tab"]')];
+    const i = tabs.indexOf(e.target);
+    if (e.key==='ArrowRight'){ e.preventDefault(); tabs[(i+1)%tabs.length].click(); tabs[(i+1)%tabs.length].focus(); }
+    if (e.key==='ArrowLeft') { e.preventDefault(); tabs[(i-1+tabs.length)%tabs.length].click(); tabs[(i-1+tabs.length)%tabs.length].focus(); }
+  }
+  const assessSlides = [11,12,13,14,15,16,17];
+  if (e.key==='ArrowRight' && !assessSlides.includes(currentSlide) && currentSlide<TOTAL_SLIDES) go(currentSlide+1);
+  if (e.key==='ArrowLeft'  && !assessSlides.includes(currentSlide) && currentSlide>1) go(currentSlide-1);
+});
+
+// ═══════════════════════════════════════════════════════════════════
+// ANNOUNCE + RESTART
+// ═══════════════════════════════════════════════════════════════════
+function announce(msg) {
+  const el = document.getElementById('sr-live');
+  if (el) { el.textContent=''; setTimeout(()=>{ el.textContent=msg; },50); }
+}
+
+function restart() {
+  assessAnswers = {}; retryMode = false; kcSelections = {};
+  classifyAnswers = {}; classifyLocked = false; classifyItemIdx = 0;
+  docFound = new Set(); docDecoyClicked = new Set(); docLastDecoy = null; docLocked = false;
+  branchDecisions = {}; branchLocked = false;
+  initShuffles();
+  for (let i=1;i<=6;i++) { const e=document.getElementById(`asc-${i}`); if(e) e.innerHTML=''; }
+  // Reset KC form
+  document.querySelectorAll('.kc-opt').forEach(el => { el.classList.remove('selected'); el.setAttribute('aria-checked','false'); });
+  const kcBtn = document.getElementById('kc-submit-btn');
+  if (kcBtn) { kcBtn.disabled=true; kcBtn.style.opacity='.4'; kcBtn.style.cursor='not-allowed'; }
+  if (document.getElementById('commitment-text')) document.getElementById('commitment-text').value = '';
+  // Reset score arc
+  const arc = document.getElementById('score-arc');
+  if (arc) { arc.style.strokeDashoffset='326.7'; arc.className='fill'; }
+  go(1);
+}
+
+// INIT
+initShuffles();
+go(1);
+
